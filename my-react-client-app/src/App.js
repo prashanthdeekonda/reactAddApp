@@ -8,13 +8,9 @@ import AdditionApp from './AdditionApp';
 
 function App() {
 
-  const description = `This person is a hardworking individual with a passion for learning and growing. 
-  They approach every task with enthusiasm and determination to succeed. 
-  They are always seeking new opportunities to expand their knowledge and skills. 
-  Their positive attitude and dedication make them a valuable asset to any team they are a part of. 
-  They inspire others with their work ethic and willingness to go the extra mile.`;
+  const description = `I am a hardworking individual with a passion for learning and growing.`;
 
-  const [name, setName] = useState('Mark Anthony');
+  const [name, setName] = useState('Sushank Sai Sriramoju');
 
   const [desc, setDesc] = useState(description);
 
