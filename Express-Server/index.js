@@ -11,10 +11,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.set('view engine', 'ejs');
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Express Server running/listening on port ${PORT}`);
+    console.log(`Express Server running/listening on port http://localhost:${PORT}/`);
+});
+
+app.get("/", (request, response) => {
+    response.send("hello this is a test service");
 });
 
 app.get("/api/addTwoNumbers", (request, response) => {
