@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function AdditionApp() {
 
@@ -10,15 +11,22 @@ export default function AdditionApp() {
 
     const [serverAdditionData, setDataFromServer] = useState(null);
 
+    const [serverPostAdditionData, setPostDataFromServer] = useState(null);
+
+
     function calcuateAdditionOfTwoNumbers() {
 
+        // set addition data from reactjs
         setAdditionOfTwoNumbers(fnumber + snumber);
 
+        const baseURL = 'http://localhost:5000/';
+
+        // set addition data from server with GET call using XMLHttpRequest
         const xhr = new XMLHttpRequest();
 
-        const url = 'http://localhost:5000/api/add';
+        const getURL = `${baseURL}api/addTwoNumbers`;
 
-        const urlWithParams = `${url}?firstNumber=${fnumber}&secondNumber=${snumber}`;
+        const urlWithParams = `${getURL}?firstNumber=${fnumber}&secondNumber=${snumber}`;
 
         xhr.open('GET', urlWithParams, true);
 
@@ -29,6 +37,14 @@ export default function AdditionApp() {
         };
 
         xhr.send();
+
+        // set addition data from server with POST call using axios
+        const postURL = `${baseURL}api/sumOfTwoNumbers`;
+        const body = {
+            firstNumber: fnumber,
+            secondNumber: snumber
+        };
+        axios.post(postURL, body).then( (res) => setPostDataFromServer(res.data));
     }
 
     return (
@@ -56,8 +72,9 @@ export default function AdditionApp() {
                 </div>
 
                 <div className='mt-5 text-start'>
-                    <h3>Your Addition result (from Server) is: {serverAdditionData?.addition || 0}</h3>
                     <h3>Your Addition result (from ReactJs) is: {additionOfTwoNumbers || 0}</h3>
+                    <h3>Your Addition result (from Server - GET) is: {serverAdditionData?.sum || 0}</h3>
+                    <h3>Your Addition result (from Server - POST) is: {serverPostAdditionData?.sum || 0}</h3>
                 </div>
 
             </div>

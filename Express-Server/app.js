@@ -1,24 +1,39 @@
-var express = require("express");
+const express = require("express");
 
-var app = express();
+const cors = require('cors');
 
-var PORT = 5000;
+const bodyParser = require('body-parser')
+
+const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.set('view engine', 'ejs');
+
+const PORT = 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Express Server running/listening on port ${PORT}`);
 });
 
-app.get("/api/add", (request, response) => {
+app.get("/api/addTwoNumbers", (request, response) => {
 
     const { firstNumber = 0, secondNumber = 0 } = request.query;
 
-    const addition = parseInt(firstNumber) + parseInt(secondNumber);
+    const sum = parseInt(firstNumber) + parseInt(secondNumber);
 
-    response.status(200).send({
-
-        success: 'true',
-        addition
-
-    })
+    response.status(200).send({ sum });
 
 });
+
+app.post("/api/sumOfTwoNumbers", (request, response) => {
+
+    const { firstNumber = 0, secondNumber = 0 } = request.body;
+
+    const sum = parseInt(firstNumber) + parseInt(secondNumber);
+
+    return response.status(200).send({ sum });
+
+});
+
