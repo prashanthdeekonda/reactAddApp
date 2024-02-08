@@ -1,5 +1,5 @@
 import logo from './bootstrap-logo.png';
-import image from './image.png';
+import image from './IMG.jpeg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -8,7 +8,7 @@ import AdditionApp from './AdditionApp';
 
 function App() {
 
-  const description = `I am a hardworking individual with a passion for learning and growing.`;
+  const description = `I am from southern part of India and am here to pursue my dream. I am very passionate about learning new things`;
 
   const [name, setName] = useState('Sushank Sai Sriramoju');
 
@@ -24,11 +24,10 @@ function App() {
       {/* navbar */}
 
       <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#/profile" onClick={(e) => setShowAdditionApp(false)}>
-            <img src={logo} alt="bootstrapLogo" width="30" height="24" class="d-inline-block align-text-top" />
-            &nbsp;Profile           </a>
-          <a class="navbar-brand text-end" href="#/additon-app" onClick={(e) => setShowAdditionApp(true)}>Addition App</a>
+        <div class="container-fluid" style={{ "justify-content": "left"}}>
+          <img src={logo} alt="bootstrapLogo" width="30" height="24" class="d-inline-block align-text-top" />
+          <a class="navbar-brand px-5" href="#/profile" onClick={(e) => setShowAdditionApp(false)}>Profile           </a>
+          <a class="navbar-brand " href="#/additon-app" onClick={(e) => setShowAdditionApp(true)}>Addition App</a>
         </div>
       </nav>
 

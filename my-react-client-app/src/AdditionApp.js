@@ -13,8 +13,8 @@ export default function AdditionApp() {
 
     const [serverPostAdditionData, setPostDataFromServer] = useState(null);
 
-
-    function calcuateAdditionOfTwoNumbers() {
+    const calcuateAdditionOfTwoNumbers = (evt) => {
+        evt.preventDefault();
 
         // set addition data from reactjs
         setAdditionOfTwoNumbers(fnumber + snumber);
@@ -44,7 +44,7 @@ export default function AdditionApp() {
             firstNumber: fnumber,
             secondNumber: snumber
         };
-        axios.post(postURL, body).then( (res) => setPostDataFromServer(res.data));
+        axios.post(postURL, body).then(response => setPostDataFromServer(response.data));
     }
 
     return (
