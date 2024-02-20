@@ -16,8 +16,9 @@ export default function AdditionApp() {
     evt.preventDefault();
 
     // set addition data from reactjs
-    setAdditionOfTwoNumbers(fnumber + snumber);
+    setAdditionOfTwoNumbers(parseInt(fnumber) + parseInt(snumber));
 
+    // replace this url with EC2 instance url from AWS
     const baseURL = "http://localhost:5000/";
 
     // set addition data from server with GET call using XMLHttpRequest
@@ -63,7 +64,7 @@ export default function AdditionApp() {
             aria-label="fnumber"
             aria-describedby="f-number"
             value={fnumber}
-            onChange={(e) => setFirstNumber(+e.target.value)}
+            onChange={(e) => setFirstNumber(e.target.value)}
           />
         </div>
 
@@ -78,7 +79,7 @@ export default function AdditionApp() {
             aria-label="snumber"
             aria-describedby="s-number"
             value={snumber}
-            onChange={(e) => setSecondNumber(+e.target.value)}
+            onChange={(e) => setSecondNumber(e.target.value)}
           />
         </div>
 
@@ -97,7 +98,7 @@ export default function AdditionApp() {
             Your Addition result (from ReactJs) is: {additionOfTwoNumbers || 0}
           </h3>
           <h3>
-            Your Addition result (from Server - GET) is
+            Your Addition result (from Server - GET) is:
             {serverAdditionData?.sum || 0}
           </h3>
           <h3>
