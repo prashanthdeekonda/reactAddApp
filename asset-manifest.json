@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/reactAddApp/static/css/main.81bac712.css",
-    "main.js": "/reactAddApp/static/js/main.c5ceb55f.js",
+    "main.js": "/reactAddApp/static/js/main.b3beac3f.js",
     "static/js/592.876d9229.chunk.js": "/reactAddApp/static/js/592.876d9229.chunk.js",
     "static/media/bootstrap-icons.woff?": "/reactAddApp/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
     "static/media/bootstrap-icons.woff2?": "/reactAddApp/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
     "static/media/bootstrap-logo.png": "/reactAddApp/static/media/bootstrap-logo.02e16df6861464872846.png",
     "index.html": "/reactAddApp/index.html",
     "main.81bac712.css.map": "/reactAddApp/static/css/main.81bac712.css.map",
-    "main.c5ceb55f.js.map": "/reactAddApp/static/js/main.c5ceb55f.js.map",
+    "main.b3beac3f.js.map": "/reactAddApp/static/js/main.b3beac3f.js.map",
     "592.876d9229.chunk.js.map": "/reactAddApp/static/js/592.876d9229.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.81bac712.css",
-    "static/js/main.c5ceb55f.js"
+    "static/js/main.b3beac3f.js"
   ]
 }
