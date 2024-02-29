@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  // github pages is not supporting BrowserRouter directly need to add basename or alternatively can use HashRouter
   <BrowserRouter basename="/reactAddApp">
     <React.StrictMode>
       <App />
