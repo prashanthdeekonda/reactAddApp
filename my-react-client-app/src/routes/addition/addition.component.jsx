@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function AdditionApp() {
+const Addition = () => {
   const [fnumber, setFirstNumber] = useState();
 
   const [snumber, setSecondNumber] = useState();
@@ -109,4 +109,6 @@ export default function AdditionApp() {
       </div>
     </div>
   );
-}
+};
+
+export default Addition;
