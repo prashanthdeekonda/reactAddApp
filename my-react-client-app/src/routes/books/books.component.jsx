@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import Spinner from "../../components/spinner/spinner.component";
 import "./books.component.css";
 
+// React Notification
+import { NotificationManager } from "react-notifications";
+
 const Books = () => {
   const [booksCollection, setBooksCollection] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,10 +18,18 @@ const Books = () => {
         const { data } = response;
         setBooksCollection(data);
         setLoading(false);
+        NotificationManager.success(
+          "Books collection retrieved!",
+          "Successful!",
+          2000
+        );
       })
       .catch((err) => {
         setLoading(false);
-        console.log("Error getting data for books collection");
+        NotificationManager.error(
+          "Error getting data for books collection",
+          "Error !"
+        );
       });
   }, []);
 

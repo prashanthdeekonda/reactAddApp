@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Fragment } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -11,18 +12,28 @@ import Inventory from "./routes/inventory/inventory.component";
 import AddInventoryItem from "./routes/add-inventory-item/add-inventory-item.component";
 import UpdateInventoryItem from "./routes/update-inventory-item/update-inventory-item";
 
+// React Notification
+import "react-notifications/lib/notifications.css";
+import { NotificationContainer } from "react-notifications";
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigation />}>
-        <Route index element={<Profile />} />
-        <Route path="addition" element={<Addition />} />
-        <Route path="books" element={<Books />} />
-        <Route path="inventory" element={<Inventory />} />
-        <Route path="inventory/add-item" element={<AddInventoryItem />} />\
-        <Route path="inventory/update-item" element={<UpdateInventoryItem />} />
-      </Route>
-    </Routes>
+    <Fragment>
+      <Routes>
+        <Route path="/" element={<Navigation />}>
+          <Route index element={<Profile />} />
+          <Route path="addition" element={<Addition />} />
+          <Route path="books" element={<Books />} />
+          <Route path="inventory" element={<Inventory />} />
+          <Route path="inventory/add-item" element={<AddInventoryItem />} />\
+          <Route
+            path="inventory/update-item"
+            element={<UpdateInventoryItem />}
+          />
+        </Route>
+      </Routes>
+      <NotificationContainer />
+    </Fragment>
   );
 }
 
