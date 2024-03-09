@@ -8,7 +8,7 @@ const Navigation = () => {
     <Fragment>
       {/* navbar */}
       <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid" style={{ "justify-content": "left" }}>
+        <div class="container-fluid" style={{ "justifyContent": "left" }}>
           <Link class="d-inline-block align-text-top" to="/">
             <img
               src={logo}
@@ -26,6 +26,9 @@ const Navigation = () => {
           </Link>
           <Link class="navbar-brand px-5" to="/books">
            Books
+          </Link>
+          <Link class="navbar-brand px-5" to="/inventory">
+           Inventory Management
           </Link>
         </div>
       </nav>

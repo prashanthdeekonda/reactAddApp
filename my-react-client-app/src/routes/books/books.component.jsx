@@ -28,7 +28,7 @@ const Books = () => {
           <tbody>
             {booksCollection.map((book) => {
               return (
-                <tr>
+                <tr key={book.id}>
                   <th>{book.id}</th>
                   <td>{book.isbn}</td>
                   <td>{book.title}</td>

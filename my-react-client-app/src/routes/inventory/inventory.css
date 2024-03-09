@@ -1,0 +1,13 @@
+.inv-table {
+  padding-top: 1rem;
+}
+
+.inv-table .table {
+  border-collapse: separate;
+  border: 1px solid lightgray;
+  border-spacing: 0;
+}
+
+.inv-table .table tbody tr td {
+    vertical-align: middle;
+}
