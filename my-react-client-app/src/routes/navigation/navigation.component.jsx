@@ -24,6 +24,9 @@ const Navigation = () => {
           <Link class="navbar-brand px-5" to="/addition">
             AdditonApp
           </Link>
+          <Link class="navbar-brand px-5" to="/books">
+           Books
+          </Link>
         </div>
       </nav>
       <Outlet />
