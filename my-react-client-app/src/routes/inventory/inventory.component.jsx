@@ -1,7 +1,8 @@
 import "./inventory.component.css";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+// import { Alert } from "react-alert";
 
 import Spinner from "../../components/spinner/spinner.component";
 
@@ -11,24 +12,45 @@ import { NotificationManager } from "react-notifications";
 const Inventory = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [itemDeleted, setItemDeleted] = useState(0);
   const navigate = useNavigate();
 
-  const addInventoryItemPage = () => {
-    navigate("add-item", { state: { id: 7, color: "green" } });
-  };
+  // replace this url with EC2 instance url from AWS
+  const baseURL = "http://localhost:5000/";
 
   const updateInventoryItem = (item) => {
     navigate("update-item", { state: item });
   };
 
-  const deleteInventoryItem = () => {};
-
-  const { state } = useLocation();
-  console.log("inventory", state);
+  const deleteInventoryItem = (item) => {
+    const id = item._id;
+    const deleteURL = `${baseURL}api/inventory/${id}`;
+    let itemsLength = items.length;
+    axios
+      .delete(deleteURL)
+      .then((response) => {
+        const del = itemDeleted + 1;
+        itemsLength--;
+        setItemDeleted(del);
+        NotificationManager.success(
+          "Inventory Item Deleted Successfully!",
+          "Successful!",
+          2000
+        );
+        if (itemsLength === 0) {
+          alert("All inventory items are deleted !!!");
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        NotificationManager.error("Error deleting inventory item", "Error !");
+      });
+  };
 
   useEffect(() => {
+    const getURL = `${baseURL}api/inventory`;
     axios
-      .get("http://localhost:5000/api/inventory")
+      .get(getURL)
       .then((response) => {
         setItems(response.data);
         setLoading(false);
@@ -45,7 +67,7 @@ const Inventory = () => {
           "Error !"
         );
       });
-  }, []);
+  }, [itemDeleted]);
 
   let spinnerContent;
 
@@ -63,14 +85,6 @@ const Inventory = () => {
         <h1>Inventory Mangement</h1>
         <span> Manage inventory items. Add, update, and delete items.</span>
         <div style={{ "text-align": "center" }} className="mb-3 mt-3">
-          {/* <button
-            type="button"
-            class="btn btn-primary"
-            onClick={addInventoryItemPage}
-          >
-            Create new Inventory Item
-          </button> */}
-
           <Link to="add-item" className="btn btn-primary">
             Create new Inventory Item
           </Link>
@@ -90,7 +104,7 @@ const Inventory = () => {
             <tbody>
               {items.length === 0 ? (
                 <tr>
-                  <td style={{ "text-align": "center" }} colSpan="4">
+                  <td style={{ "text-align": "center" }} colSpan="5">
                     Inventory is empty
                   </td>
                 </tr>
@@ -119,7 +133,7 @@ const Inventory = () => {
                           </i>
                           <i
                             class="bi bi-trash3 px-5"
-                            onClick={deleteInventoryItem}
+                            onClick={() => deleteInventoryItem(item)}
                           >
                             Delete
                           </i>

@@ -11,12 +11,17 @@ const AddInventoryItem = () => {
   const [quantity, setquantity] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
   const imageInputRef = useRef();
+
+  // replace this url with EC2 instance url from AWS
+  const baseURL = "http://localhost:5000/";
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
 
+    const s3URL = `${baseURL}api/s3/s3Url`;
     // get secure url from our aws s3 bucket server
     axios
-      .get("http://localhost:5000/api/s3/s3Url")
+      .get(s3URL)
       .then((response) => {
         const { data } = response;
         // post the image to the s3 bucket
@@ -35,6 +40,7 @@ const AddInventoryItem = () => {
         );
       });
   };
+
   let uploadedImagePreview;
   if (!!imageUrl) {
     uploadedImagePreview = (
@@ -51,10 +57,11 @@ const AddInventoryItem = () => {
   }
 
   const addInventoryItem = (e) => {
+    const postURL = `${baseURL}api/inventory`;
     e.preventDefault();
     const payload = { itemName, price, quantity, imageUrl };
     axios
-      .post("http://localhost:5000/api/inventory", payload)
+      .post(postURL, payload)
       .then((res) => {
         NotificationManager.success(
           "Inventory Item added succesfully!",
@@ -115,7 +122,7 @@ const AddInventoryItem = () => {
             <input
               type="number"
               class="form-control"
-              placeholder="enter price"
+              placeholder="Enter price"
               aria-label="price"
               aria-describedby="price"
               id="price"

@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
+import axios from "axios";
+
+// React Notification
+import { NotificationManager } from "react-notifications";
 
 const UpdateInventoryItem = () => {
   const { state } = useLocation();
@@ -7,75 +11,104 @@ const UpdateInventoryItem = () => {
   const [price, setPrice] = useState(state.price);
   const [quantity, setquantity] = useState(state.quantity);
 
-  //   useEffect( () => {
-  //     setItemName(state.itemName);
-  //     setPrice(state.price);
-  //     setquantity(state.quantity);
-  //   }, [state]);
+  // replace this url with EC2 instance url from AWS
+  const baseURL = "http://localhost:5000/";
 
-  const updateInventoryItem = () => {};
+  const updateInventoryItem = () => {
+    console.log(state);
+    const putURL = `${baseURL}api/inventory/${state._id}`;
+    const payload = { itemName, price, quantity };
+    axios
+      .put(putURL, payload)
+      .then((response) => {
+        NotificationManager.success(
+          "Inventory Item Updated Successfully!",
+          "Successful!",
+          2000
+        );
+      })
+      .catch((err) => {
+        NotificationManager.error(
+          "Error updating inventory item",
+          "Error !"
+        );
+      });
+  };
   return (
     <div>
-      <div class="container mt-5">
-        <h1>Update Inventory Item</h1>
+      <div
+        class="container mt-5"
+        style={{
+          width: "42rem",
+          padding: "2rem",
+          border: "2px solid lightgray",
+          borderRadius: "5px",
+        }}
+      >
+        <Link
+          to="/inventory"
+          class="btn btn-outline-warning float-right"
+          style={{ float: "right" }}
+        >
+          Show Inventory
+        </Link>
+        <h1 style={{ textAlign: "center" }}>Update Inventory Item</h1>
+        <form noValidate>
+          <div class="d-flex flex-row mb-3 text-start mt-5 form-group">
+            <label class="col-2"> Name </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter item name"
+              aria-label="itemName"
+              aria-describedby="item-name"
+              value={itemName}
+              id="name"
+              name="itemName"
+              onChange={(e) => setItemName(e.target.value)}
+            />
+          </div>
 
-        <div class="d-flex flex-row mb-3 text-start mt-5">
-          <label class="col-2" for="name">
-            Name
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="enter item name"
-            aria-label="itemName"
-            aria-describedby="item-name"
-            value={itemName}
-            id="name"
-            onChange={(e) => setItemName(e.target.value)}
-          />
-        </div>
+          <div class="d-flex flex-row mb-3 text-start form-group">
+            <label class="col-2"> Price </label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter price"
+              aria-label="price"
+              aria-describedby="price"
+              id="price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
 
-        <div class="d-flex flex-row mb-3 text-start">
-          <label class="col-2" for="price">
-            Price
-          </label>
-          <input
-            type="number"
-            class="form-control"
-            placeholder="enter price"
-            aria-label="price"
-            aria-describedby="price"
-            id="price"
-            value={price}
-            onChange={(e) => setPrice(+e.target.value)}
-          />
-        </div>
+          <div class="d-flex flex-row mb-3 text-start form-group">
+            <label class="col-2"> Quantity </label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter quantity"
+              aria-label="quantity"
+              aria-describedby="quantity"
+              value={quantity}
+              id="quantity"
+              name="quantity"
+              onChange={(e) => setquantity(e.target.value)}
+            />
+          </div>
 
-        <div class="d-flex flex-row mb-3 text-start">
-          <label class="col-2" for="quantity">
-            Quantity
-          </label>
-          <input
-            type="number"
-            class="form-control"
-            placeholder="enter quantity"
-            aria-label="quantity"
-            aria-describedby="quantity"
-            value={quantity}
-            id="quantity"
-            onChange={(e) => setquantity(+e.target.value)}
-          />
-        </div>
-
-        <div class=" text-start d-flex offset-md-2 mb-5">
-          <button
-            type="button"
-            class="btn btn-primary"
-            onClick={updateInventoryItem}
-          >
-            Update Inventory Item
-          </button>
-        </div>
+          <div class=" text-start d-flex offset-md-2 mb-2">
+            <button
+              type="button"
+              class="btn btn-primary"
+              onClick={updateInventoryItem}
+            >
+              Update Inventory Item
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
