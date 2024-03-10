@@ -73,6 +73,7 @@ const AddInventoryItem = () => {
         setItemName("");
         setPrice(0);
         setquantity(0);
+        setImageUrl("")
       })
       .catch((err) => {
         NotificationManager.error(
