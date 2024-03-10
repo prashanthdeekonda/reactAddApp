@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 // React Notification
@@ -9,75 +9,39 @@ const AddInventoryItem = () => {
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setquantity] = useState(0);
-  const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const imageInputRef = useRef();
-
-  const [showImage, setShowImage] = useState("");
-
-  const [item, setItem] = useState({
-    itemName: "",
-    price: 0,
-    quantity: 0,
-  });
-
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    // const file = {
-    //   file: e.target.files[0],
-    //   name: e.target.files[0].name,
-    // };
-    console.log("dd", file);
-    setImageFile(file);
-    console.log(e.target.files[0]);
 
-    // get secure url from our server
+    // get secure url from our aws s3 bucket server
     axios
       .get("http://localhost:5000/api/s3/s3Url")
       .then((response) => {
         const { data } = response;
-        console.log(data.url);
-
-        // post the image direclty to the s3 bucket
-
+        // post the image to the s3 bucket
         const headers = {
           "Content-Type": "multipart/form-data",
         };
         axios.put(data.url, file, { headers }).then((res) => {
-          console.log("inseted");
           const imageUrl = data.url.split("?")[0];
-          console.log("imagehrl", imageUrl);
-          setShowImage(imageUrl);
           setImageUrl(imageUrl);
         });
-
-        // await fetch(url, {
-        //   method: "PUT",
-        //   headers: {
-        //     "Content-Type": "multipart/form-data"
-        //   },
-        //   body: file
-        // })
       })
       .catch((err) => {
-        // setLoading(false);
-        // NotificationManager.error(
-        //   "Error getting data for Inventory collection",
-        //   "Error !"
-        // );
+        NotificationManager.error(
+          "Error uploading image into the s3 bucket",
+          "Error !"
+        );
       });
   };
-  let imagePreview;
-  // if (!!showImage) {
-  //   imagePreview = `<img src=${showImage} width="90" height="90" alt="previewUploadedImage" />`;
-  // }
-
-  if (!!showImage) {
-    imagePreview = (
+  let uploadedImagePreview;
+  if (!!imageUrl) {
+    uploadedImagePreview = (
       <div class="d-flex flex-row mb-5 text-start form-group">
         <span class="col-2">Preview Image</span>
         <img
-          src={showImage}
+          src={imageUrl}
           width="120"
           height="120"
           alt="previewUploadedImage"
@@ -85,56 +49,51 @@ const AddInventoryItem = () => {
       </div>
     );
   }
-  // const onItemChange = (e) => {
-
-  //   const  data = {
-  //       ...item,
-  //       [e.target.name]: e.target.value,
-  //     };
-  //   }
-  //   setItem(data);
-  //   console.log(item);
-  // };
-
-  const { state } = useLocation();
-  console.log("add inventory", state);
-
-  const navigate = useNavigate();
 
   const addInventoryItem = (e) => {
     e.preventDefault();
-    const obj = { itemName, price, quantity, imageUrl };
-    console.log(obj);
+    const payload = { itemName, price, quantity, imageUrl };
     axios
-      .post("http://localhost:5000/api/inventory", obj)
+      .post("http://localhost:5000/api/inventory", payload)
       .then((res) => {
         NotificationManager.success(
           "Inventory Item added succesfully!",
           " Add Item Successful!",
           2000
         );
-        imageInputRef.current.value = "";//Resets the file name of the file input - See #2
-        setImageFile(null);
+        //Resets the file name of the file input
+        imageInputRef.current.value = "";
         setItemName("");
         setPrice(0);
         setquantity(0);
-        setShowImage("") 
       })
       .catch((err) => {
-        // setLoading(false);
         NotificationManager.error(
           "Error adding inventory item, please try again",
           "Error !"
         );
       });
-
-    // navigate("/inventory", { state: obj });
   };
 
   return (
     <div>
-      <div class="container mt-5" style={{ width: "500px" }}>
-        <h1>Add Inventory Item</h1>
+      <div
+        class="container mt-5"
+        style={{
+          width: "42rem",
+          padding: "2rem",
+          border: "2px solid lightgray",
+          borderRadius: "5px",
+        }}
+      >
+        <Link
+          to="/inventory"
+          class="btn btn-outline-warning float-right"
+          style={{ float: "right" }}
+        >
+          Show Inventory
+        </Link>
+        <h1 style={{ textAlign: "center" }}>Add Inventory Item</h1>
         <form noValidate>
           <div class="d-flex flex-row mb-3 text-start mt-5 form-group">
             <label class="col-2">Name</label>
@@ -193,12 +152,12 @@ const AddInventoryItem = () => {
               onChange={handleImageUpload}
             ></input>
           </div>
-          {imagePreview}
+          {uploadedImagePreview}
           <div class=" text-start d-flex offset-md-2 mb-5">
             <button
               type="button"
               class="btn btn-primary"
-              disabled={!showImage}
+              disabled={!imageUrl}
               onClick={addInventoryItem}
             >
               Add To Inventory
