@@ -1,43 +1,73 @@
+// import { generateUploadURL } from "./routes/api/s3.mjs";
+// import express from 'express';
 const express = require("express");
 
-const cors = require('cors');
+const cors = require("cors");
 
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use(cors());
+// const generateUploadURL = require("./routes/api/s3")
+
+// Connect Database
+const connectDB = require("./config/mongoosedb");
+
+// use the cors middleware with the
+// origin and credentials options
+app.use(cors({ origin: true, credentials: true }));
+// Init Middleware
+app.use(express.json({ extended: false }));
+
+// use the body-parser middleware to parse JSON and URL-encoded data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.set('view engine', 'ejs');
 
 const PORT = process.env.PORT || 5000;
 
+
+// routes
+const inventory = require("./routes/api/inventory");
+const { generateUploadURL } = require("./routes/api/ss3");
+// const s3 = require("./routes/api/s3");
+
 app.listen(PORT, () => {
-    console.log(`Express Server running/listening on port http://localhost:${PORT}/`);
+  console.log(
+    `Express Server running/listening on port http://localhost:${PORT}/`
+  );
 });
 
 app.get("/", (request, response) => {
-    response.send("hello this is a test service");
+  response.send("hello this is a test service");
 });
 
 app.get("/api/addTwoNumbers", (request, response) => {
+  const { firstNumber = 0, secondNumber = 0 } = request.query;
 
-    const { firstNumber = 0, secondNumber = 0 } = request.query;
+  const sum = parseInt(firstNumber) + parseInt(secondNumber);
 
-    const sum = parseInt(firstNumber) + parseInt(secondNumber);
-
-    response.status(200).send({ sum });
-
+  response.status(200).send({ sum });
 });
 
 app.post("/api/sumOfTwoNumbers", (request, response) => {
+  const { firstNumber = 0, secondNumber = 0 } = request.body;
 
-    const { firstNumber = 0, secondNumber = 0 } = request.body;
+  const sum = parseInt(firstNumber) + parseInt(secondNumber);
 
-    const sum = parseInt(firstNumber) + parseInt(secondNumber);
-
-    return response.status(200).send({ sum });
-
+  return response.status(200).send({ sum });
 });
 
+// use the routes module as a middleware
+// for the /api/inventory path
+app.use("/api/inventory", inventory);
+
+// Connect Database
+connectDB();
+
+
+// s3URL
+app.get('/api/s3/s3Url', async (req, res) => {
+  const url = await generateUploadURL()
+  res.send({url})
+})

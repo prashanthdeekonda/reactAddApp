@@ -1,7 +1,16 @@
-import "./inventory.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import "./inventory.component.css";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import Spinner from "../../components/spinner/spinner.component";
+
+// React Notification
+import { NotificationManager } from "react-notifications";
 
 const Inventory = () => {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const addInventoryItemPage = () => {
@@ -9,54 +18,64 @@ const Inventory = () => {
   };
 
   const updateInventoryItem = (item) => {
-     navigate("update-item", { state: item });
+    navigate("update-item", { state: item });
   };
 
   const deleteInventoryItem = () => {};
 
   const { state } = useLocation();
-  console.log('inventory', state);
+  console.log("inventory", state);
 
-  const items = [
-    {
-      imageUrl: "https://robohash.org/1?set=set2&size=90x90",
-      itemName: "Shoes",
-      price: "20",
-      quantity: "50",
-    },
-    {
-      imageUrl: "https://robohash.org/2?set=set2&size=90x90",
-      itemName: "Belts",
-      price: "40",
-      quantity: "70",
-    },
-    {
-      imageUrl: "https://robohash.org/3?set=set2&size=90x90",
-      itemName: "Glasses",
-      price: "60",
-      quantity: "80",
-    },
-    {
-      imageUrl: "https://robohash.org/4?set=set2&size=90x90",
-      itemName: "Fi",
-      price: "90",
-      quantity: "75",
-    },
-  ];
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/inventory")
+      .then((response) => {
+        setItems(response.data);
+        setLoading(false);
+        NotificationManager.success(
+          "Inventory collection retrieved!",
+          "Successful!",
+          2000
+        );
+      })
+      .catch((err) => {
+        setLoading(false);
+        NotificationManager.error(
+          "Error getting data for Inventory collection",
+          "Error !"
+        );
+      });
+  }, []);
+
+  let spinnerContent;
+
+  if (loading) {
+    spinnerContent = (
+      <div className="spinner">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <div>
       <div class="container mt-5">
         <h1>Inventory Mangement</h1>
         <span> Manage inventory items. Add, update, and delete items.</span>
         <div style={{ "text-align": "center" }} className="mb-3 mt-3">
-          <button
+          {/* <button
             type="button"
             class="btn btn-primary"
             onClick={addInventoryItemPage}
           >
             Create new Inventory Item
-          </button>
+          </button> */}
+
+          <Link to="add-item" className="btn btn-primary">
+            Create new Inventory Item
+          </Link>
         </div>
+        <div>{spinnerContent}</div>
         <div className="inv-table">
           <table class="table table-striped">
             <thead>
@@ -91,15 +110,19 @@ const Inventory = () => {
                         <td>{item.itemName}</td>
                         <td>{`$${item.price}`}</td>
                         <td>{item.quantity}</td>
-                        <td style={{cursor: "pointer"}}>
+                        <td style={{ cursor: "pointer" }}>
                           <i
                             class="bi bi-pencil-square"
                             onClick={() => updateInventoryItem(item)}
-                          >Update</i>
+                          >
+                            Update
+                          </i>
                           <i
                             class="bi bi-trash3 px-5"
                             onClick={deleteInventoryItem}
-                          >Delete</i>
+                          >
+                            Delete
+                          </i>
                         </td>
                       </tr>
                     );
