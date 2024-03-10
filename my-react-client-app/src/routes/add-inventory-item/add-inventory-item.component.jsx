@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -9,10 +9,11 @@ const AddInventoryItem = () => {
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setquantity] = useState(0);
-  const [imageFile, setImageFile] = useState();
+  const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
+  const imageInputRef = useRef();
 
-  const [showImage, setShowImage] = useState();
+  const [showImage, setShowImage] = useState("");
 
   const [item, setItem] = useState({
     itemName: "",
@@ -66,7 +67,24 @@ const AddInventoryItem = () => {
         // );
       });
   };
+  let imagePreview;
+  // if (!!showImage) {
+  //   imagePreview = `<img src=${showImage} width="90" height="90" alt="previewUploadedImage" />`;
+  // }
 
+  if (!!showImage) {
+    imagePreview = (
+      <div class="d-flex flex-row mb-5 text-start form-group">
+        <span class="col-2">Preview Image</span>
+        <img
+          src={showImage}
+          width="120"
+          height="120"
+          alt="previewUploadedImage"
+        />
+      </div>
+    );
+  }
   // const onItemChange = (e) => {
 
   //   const  data = {
@@ -85,21 +103,39 @@ const AddInventoryItem = () => {
 
   const addInventoryItem = (e) => {
     e.preventDefault();
-    const obj = {
-      name: itemName,
-      price: price,
-      quantity: quantity,
-      imageFile: imageFile,
-    };
-    NotificationManager.success("added succesfully!", "Successful!", 2000);
-    navigate("/inventory", { state: obj });
+    const obj = { itemName, price, quantity, imageUrl };
+    console.log(obj);
+    axios
+      .post("http://localhost:5000/api/inventory", obj)
+      .then((res) => {
+        NotificationManager.success(
+          "Inventory Item added succesfully!",
+          " Add Item Successful!",
+          2000
+        );
+        imageInputRef.current.value = "";//Resets the file name of the file input - See #2
+        setImageFile(null);
+        setItemName("");
+        setPrice(0);
+        setquantity(0);
+        setShowImage("") 
+      })
+      .catch((err) => {
+        // setLoading(false);
+        NotificationManager.error(
+          "Error adding inventory item, please try again",
+          "Error !"
+        );
+      });
+
+    // navigate("/inventory", { state: obj });
   };
 
   return (
     <div>
       <div class="container mt-5" style={{ width: "500px" }}>
         <h1>Add Inventory Item</h1>
-        <form noValidate onSubmit={addInventoryItem}>
+        <form noValidate>
           <div class="d-flex flex-row mb-3 text-start mt-5 form-group">
             <label class="col-2">Name</label>
             <input
@@ -141,7 +177,7 @@ const AddInventoryItem = () => {
               value={quantity}
               id="quantity"
               name="quantity"
-              onChange={(e) => e.target.value}
+              onChange={(e) => setquantity(e.target.value)}
             />
           </div>
 
@@ -153,18 +189,23 @@ const AddInventoryItem = () => {
               id="image"
               name="imageUrl"
               accept=".png, .jpg, .jpeg"
+              ref={imageInputRef}
               onChange={handleImageUpload}
             ></input>
           </div>
-
+          {imagePreview}
           <div class=" text-start d-flex offset-md-2 mb-5">
-            <button type="button" class="btn btn-primary">
+            <button
+              type="button"
+              class="btn btn-primary"
+              disabled={!showImage}
+              onClick={addInventoryItem}
+            >
               Add To Inventory
             </button>
           </div>
         </form>
       </div>
-      <img src={showImage} alt="sh" />
     </div>
   );
 };
