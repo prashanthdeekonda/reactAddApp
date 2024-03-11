@@ -81,7 +81,7 @@ const Inventory = () => {
 
   return (
     <div>
-      <div class="container mt-5">
+      <div class="container mt-5" style={{ textAlign: "center" }}>
         <h1>Inventory Mangement</h1>
         <span> Manage inventory items. Add, update, and delete items.</span>
         <div style={{ "text-align": "center" }} className="mb-3 mt-3">
