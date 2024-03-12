@@ -12,8 +12,13 @@ const Books = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const url = "https://softwium.com/api/books";
-    axios(url)
+    const booksApiUrl = "https://books-api7.p.rapidapi.com/books/find/genres";
+    const params = { "genres[]": ["fantasy", "fiction", "Classics"] };
+    const headers = {
+      "X-RapidAPI-Key": "eaed3af1eemshe894b69298432ccp10d934jsn9fa0b2a61780",
+      "X-RapidAPI-Host": "books-api7.p.rapidapi.com",
+    };
+    axios(booksApiUrl, { params, headers })
       .then((response) => {
         const { data } = response;
         setBooksCollection(data);
@@ -51,20 +56,23 @@ const Books = () => {
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>ISBN</th>
+              <th>IMAGE</th>
               <th>TITLE</th>
-              <th>AUTHORS</th>
+              <th>AUTHOR</th>
+              <th>GENRE</th>
             </tr>
           </thead>
           <tbody>
             {booksCollection.map((book) => {
+              const author = `${book.author.first_name} ${book.author.last_name}`;
               return (
-                <tr key={book.id}>
-                  <th>{book.id}</th>
-                  <td>{book.isbn}</td>
+                <tr key={book._id}>
+                  <td>
+                    <img src={book.cover} width="90" height="90" alt="ima" />
+                  </td>
                   <td>{book.title}</td>
-                  <td>{book.authors.join(", ")}</td>
+                  <td>{author}</td>
+                  <td>{book.genres.join(", ")}</td>
                 </tr>
               );
             })}

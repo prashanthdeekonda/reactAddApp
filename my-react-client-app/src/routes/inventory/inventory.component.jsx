@@ -80,9 +80,17 @@ const Inventory = () => {
 
   return (
     <div>
-      <div class="container mt-5" style={{ textAlign: "center" }}>
-        <h1>Inventory Mangement</h1>
-        <span> Manage inventory items. Add, update, and delete items.</span>
+      <div class="container mt-5">
+        <h1 style={{ textAlign: "center" }}>Inventory Mangement</h1>
+        <span
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "0.85rem",
+          }}
+        >
+          Manage inventory items. Add, update, and delete items.
+        </span>
         <div style={{ "text-align": "center" }} className="mb-3 mt-3">
           <Link to="add-item" className="btn btn-primary">
             Create new Inventory Item
