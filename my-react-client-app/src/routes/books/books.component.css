@@ -3,3 +3,13 @@
   left: 50%;
   top: 50%;
 }
+
+.books table {
+  border-collapse: separate;
+  border: 1px solid lightgray;
+  border-spacing: 0;
+}
+
+.books .table tbody tr td {
+  vertical-align: middle;
+}

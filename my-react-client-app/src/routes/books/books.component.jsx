@@ -49,7 +49,7 @@ const Books = () => {
   }
 
   return (
-    <div>
+    <div className="books">
       <div class="container mt-5">
         <h1> Third Party Api - Books Collection</h1>
         <div>{spinnerContent}</div>

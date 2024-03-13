@@ -6,7 +6,15 @@ const cors = require("cors");
 
 const bodyParser = require("body-parser");
 
+const axios = require("axios");
+
 const app = express();
+
+const dotenv = require("dotenv");
+// dotenv.config();
+
+const fs = require("fs").promises;
+const retrieveSecrets = require("./routes/api/retrieveSecrets");
 
 // const generateUploadURL = require("./routes/api/s3")
 
@@ -26,16 +34,42 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 5000;
 
-
 // routes
 const inventory = require("./routes/api/inventory");
 const { generateUploadURL } = require("./routes/api/ss3");
 // const s3 = require("./routes/api/s3");
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  // try {
+  //   //get secretsString:
+  //   const secretsString = await retrieveSecrets();
+
+  //   //write to .env file at root level of project:
+  //   await fs.writeFile(".env", secretsString);
+
+  //   //configure dotenv package
+  //   dotenv.config();
+
+  //   console.log("Server running on port 4000");
+  // } catch (error) {
+  //   //log the error and crash the app
+  //   console.log("Error in setting environment variables", error);
+  //   process.exit(-1);
+  // }
   console.log(
     `Express Server running/listening on port http://localhost:${PORT}/`
   );
+});
+
+//routes to verify that the secrets were retrieved successfully.
+app.get("/api/secrets", (req, res) => {
+  return res.status(200).json({
+    SECRET_1: process.env.AWS_ACCESS_KEY_ID,
+    SECRET_2: process.env.AWS_SECRET_ACCESS_KEY,
+    SECRET_3: process.env.MONGO_USER_NAME,
+    SECRET_4: process.env.MONGO_PASSWORD,
+    SECRET_5: process.env.API_KEY,
+  });
 });
 
 app.get("/", (request, response) => {
@@ -65,9 +99,34 @@ app.use("/api/inventory", inventory);
 // Connect Database
 connectDB();
 
-
 // s3URL
-app.get('/api/s3/s3Url', async (req, res) => {
-  const url = await generateUploadURL()
-  res.send({url})
-})
+app.get("/api/s3/s3Url", async (req, res) => {
+  const url = await generateUploadURL();
+  res.send({ url });
+});
+
+app.get("/api/books", async (req, res) => {
+  const options = {
+    method: "GET",
+    url: "https://books-api7.p.rapidapi.com/books/find/genres",
+    params: {
+      "genres[]": ["fantasy", "fiction", "Classics"],
+    },
+    headers: {
+      "X-RapidAPI-Key": process.env.API_KEY,
+      "X-RapidAPI-Host": "books-api7.p.rapidapi.com",
+    },
+  };
+  // "eaed3af1eemshe894b69298432ccp10d934jsn9fa0b2a61780"
+
+  const response = await axios.request(options);
+  res.send(response.data);
+  // response.then((items) => res.json(items))
+  // try {
+  //   const response = await axios.request(options);
+  //   console.log(response.data);
+  //   res.send(response);
+  // } catch (error) {
+  //   console.error(error);
+  // }
+});
