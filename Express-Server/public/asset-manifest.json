@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/reactAddApp/static/css/main.6db8cc48.css",
+    "main.js": "/reactAddApp/static/js/main.2dc75fb9.js",
+    "static/js/453.aca72436.chunk.js": "/reactAddApp/static/js/453.aca72436.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/reactAddApp/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
+    "static/media/bootstrap-icons.woff2?": "/reactAddApp/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
+    "static/media/bootstrap-logo.png": "/reactAddApp/static/media/bootstrap-logo.02e16df6861464872846.png",
+    "static/media/notification.svg?s3g3t9": "/reactAddApp/static/media/notification.5d0158671dd860c714c4.svg",
+    "static/media/notification.eot": "/reactAddApp/static/media/notification.3657084dc0419605a91c.eot",
+    "static/media/notification.woff?s3g3t9": "/reactAddApp/static/media/notification.c392cd33d9d9de730f9d.woff",
+    "static/media/notification.ttf?s3g3t9": "/reactAddApp/static/media/notification.c5d9251ea82e42f75381.ttf",
+    "index.html": "/reactAddApp/index.html",
+    "main.6db8cc48.css.map": "/reactAddApp/static/css/main.6db8cc48.css.map",
+    "main.2dc75fb9.js.map": "/reactAddApp/static/js/main.2dc75fb9.js.map",
+    "453.aca72436.chunk.js.map": "/reactAddApp/static/js/453.aca72436.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6db8cc48.css",
+    "static/js/main.2dc75fb9.js"
+  ]
+}
