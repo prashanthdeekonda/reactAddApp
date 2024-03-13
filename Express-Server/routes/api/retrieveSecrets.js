@@ -9,7 +9,7 @@ module.exports = () => {
   const region = "us-east-2";
   const client = new AWS.SecretsManager({ region });
 
-  const SecretId = "prod/app/secrets";
+  const SecretId = "prod/myapp/secrets";
 
   return new Promise((resolve, reject) => {
 		//retrieving secrets from secrets manager

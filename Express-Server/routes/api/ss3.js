@@ -1,14 +1,20 @@
 const aws = require("aws-sdk");
 const dotenv = require("dotenv");
 const crypto = require("crypto");
-const {promisify} = require("util");
+const { promisify } = require("util");
 const randomBytes = promisify(crypto.randomBytes);
 
 dotenv.config();
 
+// SECRET_1: process.env.AWS_ACCESS_KEY_ID,
+// SECRET_2: process.env.AWS_SECRET_ACCESS_KEY,
+// SECRET_3: process.env.MONGOOSE_DB_CONNECTION_STRING,
+// SECRET_4: process.env.API_KEY,
+// SECRET_5: process.env.API_HOST,
+
 const region = "us-east-2";
 // const bucketName = "inventory-image-upload-s3-bucket";
-const bucketName = "s3-inventory-item-image-upload-bucket";
+const bucketName = "s3-image-upload-bucket";
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
@@ -19,7 +25,7 @@ const s3 = new aws.S3({
   signatureVersion: "v4",
 });
 
- async function generateUploadURL() {
+async function generateUploadURL() {
   const rawBytes = await randomBytes(16);
   const imageName = rawBytes.toString("hex");
 
@@ -34,8 +40,8 @@ const s3 = new aws.S3({
 }
 
 module.exports = {
-  generateUploadURL
-}
+  generateUploadURL,
+};
 
 // const AWS = require("aws-sdk");
 // const dotenv = require("dotenv");

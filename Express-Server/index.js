@@ -8,10 +8,12 @@ const bodyParser = require("body-parser");
 
 const axios = require("axios");
 
+const path = require("path");
+
 const app = express();
 
 const dotenv = require("dotenv");
-// dotenv.config();
+dotenv.config();
 
 const fs = require("fs").promises;
 const retrieveSecrets = require("./routes/api/retrieveSecrets");
@@ -20,6 +22,8 @@ const retrieveSecrets = require("./routes/api/retrieveSecrets");
 
 // Connect Database
 const connectDB = require("./config/mongoosedb");
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // use the cors middleware with the
 // origin and credentials options
@@ -37,25 +41,26 @@ const PORT = process.env.PORT || 5000;
 // routes
 const inventory = require("./routes/api/inventory");
 const { generateUploadURL } = require("./routes/api/ss3");
+
 // const s3 = require("./routes/api/s3");
 
 app.listen(PORT, async () => {
-  // try {
-  //   //get secretsString:
-  //   const secretsString = await retrieveSecrets();
+  try {
+    //get secretsString:
+    const secretsString = await retrieveSecrets();
 
-  //   //write to .env file at root level of project:
-  //   await fs.writeFile(".env", secretsString);
+    //write to .env file at root level of project:
+    await fs.writeFile(".env", secretsString);
 
-  //   //configure dotenv package
-  //   dotenv.config();
+    //configure dotenv package
+    dotenv.config();
 
-  //   console.log("Server running on port 4000");
-  // } catch (error) {
-  //   //log the error and crash the app
-  //   console.log("Error in setting environment variables", error);
-  //   process.exit(-1);
-  // }
+    console.log("Server running on port 5000");
+  } catch (error) {
+    //log the error and crash the app
+    console.log("Error in setting environment variables", error);
+    process.exit(-1);
+  }
   console.log(
     `Express Server running/listening on port http://localhost:${PORT}/`
   );
@@ -66,9 +71,9 @@ app.get("/api/secrets", (req, res) => {
   return res.status(200).json({
     SECRET_1: process.env.AWS_ACCESS_KEY_ID,
     SECRET_2: process.env.AWS_SECRET_ACCESS_KEY,
-    SECRET_3: process.env.MONGO_USER_NAME,
-    SECRET_4: process.env.MONGO_PASSWORD,
-    SECRET_5: process.env.API_KEY,
+    SECRET_3: process.env.MONGOOSE_DB_CONNECTION_STRING,
+    SECRET_4: process.env.API_KEY,
+    SECRET_5: process.env.API_HOST,
   });
 });
 
@@ -114,7 +119,7 @@ app.get("/api/books", async (req, res) => {
     },
     headers: {
       "X-RapidAPI-Key": process.env.API_KEY,
-      "X-RapidAPI-Host": "books-api7.p.rapidapi.com",
+      "X-RapidAPI-Host": process.env.API_HOST,
     },
   };
   // "eaed3af1eemshe894b69298432ccp10d934jsn9fa0b2a61780"
