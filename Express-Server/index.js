@@ -47,19 +47,16 @@ const { generateUploadURL } = require("./routes/api/ss3");
 app.listen(PORT, async () => {
   try {
     //get secretsString:
-    const secretsString = await retrieveSecrets();
-
-    //write to .env file at root level of project:
-    await fs.writeFile(".env", secretsString);
-
-    //configure dotenv package
-    dotenv.config();
-
-    console.log("Server running on port 5000");
+    // const secretsString = await retrieveSecrets();
+    // //write to .env file at root level of project:
+    // await fs.writeFile(".env", secretsString);
+    // //configure dotenv package
+    // dotenv.config();
+    // console.log("Server running on port 5000");
   } catch (error) {
     //log the error and crash the app
-    console.log("Error in setting environment variables", error);
-    process.exit(-1);
+    // console.log("Error in setting environment variables", error);
+    // process.exit(-1);
   }
   console.log(
     `Express Server running/listening on port http://localhost:${PORT}/`
@@ -108,6 +105,25 @@ connectDB();
 app.get("/api/s3/s3Url", async (req, res) => {
   const url = await generateUploadURL();
   res.send({ url });
+});
+
+app.get("/api/s3/s3Url/delete/:id", async (request, response) => {
+  const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  });
+
+  const params = {
+    Bucket: "s3-image-upload-bucket",
+    Key: request.params.id,
+  };
+
+  s3.deleteObject(params, (error, data) => {
+    if (error) {
+      res.status(500).send(error);
+    }
+    res.status(200).send("File has been deleted successfully");
+  });
 });
 
 app.get("/api/books", async (req, res) => {

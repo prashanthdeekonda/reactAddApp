@@ -15,8 +15,11 @@ const Inventory = () => {
   const navigate = useNavigate();
 
   // replace this url with EC2 instance url from AWS
-  const baseURL = "http://localhost:5000/";
-
+  const host = window.location.host;
+  const baseURL = host.includes("localhost")
+    ? "http://localhost:5000/"
+    : host + "/";
+  // const baseURL = "http://localhost:5000/";
   const updateInventoryItem = (item) => {
     navigate("update-item", { state: item });
   };
@@ -36,6 +39,11 @@ const Inventory = () => {
           "Successful!",
           2000
         );
+        const keyToDelete = item.imageUrl.split("/")[3];
+        const deleteS3Image = `${baseURL}/api/s3/s3Url/delete/${keyToDelete}`;
+        axios.get(deleteS3Image).then((res) => {
+          console.log(res);
+        });
         if (itemsLength === 0) {
           alert("All inventory items are deleted !!!");
         }
@@ -66,7 +74,7 @@ const Inventory = () => {
           "Error !"
         );
       });
-  }, [itemDeleted]);
+  }, [itemDeleted, baseURL]);
 
   let spinnerContent;
 

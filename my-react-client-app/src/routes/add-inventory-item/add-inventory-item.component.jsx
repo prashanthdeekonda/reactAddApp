@@ -13,7 +13,10 @@ const AddInventoryItem = () => {
   const imageInputRef = useRef();
 
   // replace this url with EC2 instance url from AWS
-  const baseURL = "http://localhost:5000/";
+  const host = window.location.host;
+  const baseURL = host.includes("localhost")
+    ? "http://localhost:5000/"
+    : host + "/";
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];

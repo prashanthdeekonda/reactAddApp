@@ -12,7 +12,10 @@ const UpdateInventoryItem = () => {
   const [quantity, setquantity] = useState(state.quantity);
 
   // replace this url with EC2 instance url from AWS
-  const baseURL = "http://localhost:5000/";
+  const host = window.location.host;
+  const baseURL = host.includes("localhost")
+    ? "http://localhost:5000/"
+    : host + "/";
 
   const updateInventoryItem = () => {
     console.log(state);
@@ -28,10 +31,7 @@ const UpdateInventoryItem = () => {
         );
       })
       .catch((err) => {
-        NotificationManager.error(
-          "Error updating inventory item",
-          "Error !"
-        );
+        NotificationManager.error("Error updating inventory item", "Error !");
       });
   };
   return (

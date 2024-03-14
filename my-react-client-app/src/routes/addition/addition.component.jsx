@@ -19,7 +19,10 @@ const Addition = () => {
     setAdditionOfTwoNumbers(parseInt(fnumber) + parseInt(snumber));
 
     // replace this url with EC2 instance url from AWS
-    const baseURL = "http://localhost:5000/";
+    const host = window.location.host;
+    const baseURL = host.includes("localhost")
+      ? "http://localhost:5000/"
+      : host + "/";
 
     // set addition data from server with GET call using XMLHttpRequest
     const xhr = new XMLHttpRequest();
