@@ -6,18 +6,18 @@ const AWS = require("aws-sdk");
 
 module.exports = () => {
   //configure AWS SDK
-  const region = "us-east-2";
+  const region = "us-east-1";
 
   const SecretId = "prod/myapp/secrets";
 
   AWS.config.update({
     region: region,
-    endpoint: "http://ec2-54-197-133-245.compute-1.amazonaws.com:3000/",
+    endpoint: "http://ec2-23-22-29-44.compute-1.amazonaws.com:3000/",
   });
 
   const client = new AWS.SecretsManager({
     region,
-    endpoint: "http://54.197.133.245:5000/",
+	endpoint: "http://ec2-23-22-29-44.compute-1.amazonaws.com:3000/",
 	accessKeyId: "AKIATQRG6BLG6JS3CJA4",
 	secretAccessKey: "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"
   });

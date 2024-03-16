@@ -2,10 +2,10 @@
   "name": "nodeexpressjsserver",
   "version": "1.0.0",
   "description": "This is a simple express server to add two numbers",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "aws-sdk": "^2.1574.0",
