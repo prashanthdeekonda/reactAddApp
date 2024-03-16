@@ -23,6 +23,19 @@ const retrieveSecrets = require("./routes/api/retrieveSecrets");
 // use the cors middleware with the
 // origin and credentials options
 app.use(cors({ origin: true, credentials: true }));
+
+// Define the CORS options
+const corsOptions = {
+  credentials: true,
+  origin: [
+    "http://localhost:5000",
+    "http://ec2-54-197-133-245.compute-1.amazonaws.com:5000",
+    "ec2-54-197-133-245.compute-1.amazonaws.com:5000",
+  ], // Whitelist the domains you want to allow
+};
+
+app.use(cors(corsOptions));
+
 // Init Middleware
 app.use(express.json({ extended: false }));
 
