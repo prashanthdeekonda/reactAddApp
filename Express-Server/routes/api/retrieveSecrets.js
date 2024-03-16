@@ -7,31 +7,42 @@ const AWS = require("aws-sdk");
 module.exports = () => {
   //configure AWS SDK
   const region = "us-east-2";
-  const client = new AWS.SecretsManager({ region });
 
   const SecretId = "prod/myapp/secrets";
 
-  return new Promise((resolve, reject) => {
-		//retrieving secrets from secrets manager
-		client.getSecretValue({ SecretId }, (err, data) => {
-			if (err) {
-				reject(err);
-			} else {
-				//parsing the fetched data into JSON
-				const secretsJSON = JSON.parse(data.SecretString);
+  AWS.config.update({
+    region: region,
+    endpoint: "http://ec2-54-197-133-245.compute-1.amazonaws.com:3000/",
+  });
 
-				// creating a string to store write to .env file
-				// .env file shall look like this :
-				// SECRET_1 = sample_secret_1
-				// SECRET_2 = sample_secret_2
-				let secretsString = "";
-				Object.keys(secretsJSON).forEach((key) => {
-					secretsString += `${key}=${secretsJSON[key]}\n`;
-				});
-				resolve(secretsString);
-			}
-		});
-	});
+  const client = new AWS.SecretsManager({
+    region,
+    endpoint: "http://54.197.133.245:5000/",
+	accessKeyId: "AKIATQRG6BLG6JS3CJA4",
+	secretAccessKey: "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"
+  });
+
+  return new Promise((resolve, reject) => {
+    //retrieving secrets from secrets manager
+    client.getSecretValue({ SecretId }, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        //parsing the fetched data into JSON
+        const secretsJSON = JSON.parse(data.SecretString);
+
+        // creating a string to store write to .env file
+        // .env file shall look like this :
+        // SECRET_1 = sample_secret_1
+        // SECRET_2 = sample_secret_2
+        let secretsString = "";
+        Object.keys(secretsJSON).forEach((key) => {
+          secretsString += `${key}=${secretsJSON[key]}\n`;
+        });
+        resolve(secretsString);
+      }
+    });
+  });
 };
 
 // import {
