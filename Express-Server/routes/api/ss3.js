@@ -12,9 +12,9 @@ dotenv.config();
 // SECRET_4: process.env.API_KEY,
 // SECRET_5: process.env.API_HOST,
 
-const region = "us-east-2";
+const region = process.env.BUCKET_REGION;
 // const bucketName = "inventory-image-upload-s3-bucket";
-const bucketName = "s3-image-upload-bucket";
+const bucketName = process.env.BUCKET_NAME;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 

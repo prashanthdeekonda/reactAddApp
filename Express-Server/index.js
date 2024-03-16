@@ -1,5 +1,3 @@
-// import { generateUploadURL } from "./routes/api/s3.mjs";
-// import express from 'express';
 const express = require("express");
 
 const cors = require("cors");
@@ -12,6 +10,8 @@ const path = require("path");
 
 const app = express();
 
+const aws = require("aws-sdk");
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -22,8 +22,6 @@ const retrieveSecrets = require("./routes/api/retrieveSecrets");
 
 // Connect Database
 const connectDB = require("./config/mongoosedb");
-
-app.use(express.static(path.join(__dirname, "public")));
 
 // use the cors middleware with the
 // origin and credentials options
@@ -46,17 +44,17 @@ const { generateUploadURL } = require("./routes/api/ss3");
 
 app.listen(PORT, async () => {
   try {
-    //get secretsString:
-    // const secretsString = await retrieveSecrets();
-    // //write to .env file at root level of project:
-    // await fs.writeFile(".env", secretsString);
-    // //configure dotenv package
-    // dotenv.config();
-    // console.log("Server running on port 5000");
+    // get secretsString:
+    const secretsString = await retrieveSecrets();
+    //write to .env file at root level of project:
+    await fs.writeFile(".env", secretsString);
+    //configure dotenv package
+    dotenv.config();
+    console.log("Server running on port 5000");
   } catch (error) {
-    //log the error and crash the app
-    // console.log("Error in setting environment variables", error);
-    // process.exit(-1);
+    // log the error and crash the app
+    console.log("Error in setting environment variables", error);
+    process.exit(-1);
   }
   console.log(
     `Express Server running/listening on port http://localhost:${PORT}/`
@@ -71,11 +69,14 @@ app.get("/api/secrets", (req, res) => {
     SECRET_3: process.env.MONGOOSE_DB_CONNECTION_STRING,
     SECRET_4: process.env.API_KEY,
     SECRET_5: process.env.API_HOST,
+    SECRET_6: process.env.BUCKET_NAME,
+    SECRET_5: process.env.BUCKET_REGION,
+    
   });
 });
 
 app.get("/", (request, response) => {
-  response.send("hello this is a test service");
+  response.send("<h1>Hey, it works!</h1>");
 });
 
 app.get("/api/addTwoNumbers", (request, response) => {
@@ -108,21 +109,21 @@ app.get("/api/s3/s3Url", async (req, res) => {
 });
 
 app.get("/api/s3/s3Url/delete/:id", async (request, response) => {
-  const s3 = new AWS.S3({
+  const s3 = new aws.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   });
 
   const params = {
-    Bucket: "s3-image-upload-bucket",
+    Bucket: process.env.BUCKET_NAME,
     Key: request.params.id,
   };
 
   s3.deleteObject(params, (error, data) => {
     if (error) {
-      res.status(500).send(error);
+      response.status(500).send(error);
     }
-    res.status(200).send("File has been deleted successfully");
+    response.status(200).send("File has been deleted successfully");
   });
 });
 
@@ -138,16 +139,14 @@ app.get("/api/books", async (req, res) => {
       "X-RapidAPI-Host": process.env.API_HOST,
     },
   };
-  // "eaed3af1eemshe894b69298432ccp10d934jsn9fa0b2a61780"
-
   const response = await axios.request(options);
   res.send(response.data);
-  // response.then((items) => res.json(items))
-  // try {
-  //   const response = await axios.request(options);
-  //   console.log(response.data);
-  //   res.send(response);
-  // } catch (error) {
-  //   console.error(error);
-  // }
+
+});
+
+app.use(express.static(path.join(__dirname, "../my-react-client-app/build")));
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.resolve(__dirname, "../my-react-client-app/build", "index.html")
+  );
 });
