@@ -40,9 +40,13 @@ const Inventory = () => {
           2000
         );
         const keyToDelete = item.imageUrl.split("/")[3];
-        const deleteS3Image = `${baseURL}/api/s3/s3Url/delete/${keyToDelete}`;
+        const deleteS3Image = `${baseURL}api/s3/s3Url/delete/${keyToDelete}`;
         axios.get(deleteS3Image).then((res) => {
-          console.log(res);
+          NotificationManager.success(
+            " Image Deleted Successfully from S3 Bucket!",
+            "Successful!",
+            2000
+          );
         });
         if (itemsLength === 0) {
           alert("All inventory items are deleted !!!");
