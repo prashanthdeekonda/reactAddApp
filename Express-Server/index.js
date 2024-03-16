@@ -67,8 +67,7 @@ app.get("/api/secrets", (req, res) => {
     SECRET_4: process.env.API_KEY,
     SECRET_5: process.env.API_HOST,
     SECRET_6: process.env.BUCKET_NAME,
-    SECRET_5: process.env.BUCKET_REGION,
-    
+    SECRET_7: process.env.BUCKET_REGION,
   });
 });
 
@@ -109,12 +108,14 @@ app.get("/api/s3/s3Url", async (req, res) => {
 
 app.get("/api/s3/s3Url/delete/:id", async (request, response) => {
   const s3 = new aws.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "AKIATQRG6BLG3GQOO6UJ",
+    secretAccessKey:
+      process.env.AWS_SECRET_ACCESS_KEY ||
+      "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",
   });
 
   const params = {
-    Bucket: process.env.BUCKET_NAME,
+    Bucket: process.env.BUCKET_NAME || "prod-image-upload",
     Key: request.params.id,
   };
 
@@ -134,13 +135,14 @@ app.get("/api/books", async (req, res) => {
       "genres[]": ["fantasy", "fiction", "Classics"],
     },
     headers: {
-      "X-RapidAPI-Key": process.env.API_KEY,
-      "X-RapidAPI-Host": process.env.API_HOST,
+      "X-RapidAPI-Key":
+        process.env.API_KEY ||
+        "eaed3af1eemshe894b69298432ccp10d934jsn9fa0b2a61780",
+      "X-RapidAPI-Host": process.env.API_HOST || "books-api7.p.rapidapi.com",
     },
   };
   const response = await axios.request(options);
   res.send(response.data);
-
 });
 
 app.use(express.static(path.join(__dirname, "../my-react-client-app/build")));
