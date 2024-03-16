@@ -18,7 +18,7 @@ const Inventory = () => {
   const host = window.location.host;
   const baseURL = host.includes("localhost")
     ? "http://localhost:5000/"
-    : host + "/";
+    : `http://${host}/`;
   // const baseURL = "http://localhost:5000/";
   const updateInventoryItem = (item) => {
     navigate("update-item", { state: item });

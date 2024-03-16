@@ -30,7 +30,9 @@ const corsOptions = {
   origin: [
     "http://localhost:5000",
     "http://ec2-54-197-133-245.compute-1.amazonaws.com:5000",
+    "http://ec2-54-197-133-245.compute-1.amazonaws.com:5000/",
     "ec2-54-197-133-245.compute-1.amazonaws.com:5000",
+    "ec2-54-197-133-245.compute-1.amazonaws.com:5000/",
   ], // Whitelist the domains you want to allow
 };
 

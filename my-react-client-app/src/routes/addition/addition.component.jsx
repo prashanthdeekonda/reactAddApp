@@ -22,7 +22,7 @@ const Addition = () => {
     const host = window.location.host;
     const baseURL = host.includes("localhost")
       ? "http://localhost:5000/"
-      : host + "/";
+      : `http://${host}/`;
 
     // set addition data from server with GET call using XMLHttpRequest
     const xhr = new XMLHttpRequest();

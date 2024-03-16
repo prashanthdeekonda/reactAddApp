@@ -16,7 +16,7 @@ const AddInventoryItem = () => {
   const host = window.location.host;
   const baseURL = host.includes("localhost")
     ? "http://localhost:5000/"
-    : host + "/";
+    : `http://${host}/`;
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
