@@ -28,11 +28,10 @@ app.use(cors({ origin: true, credentials: true }));
 const corsOptions = {
   credentials: true,
   origin: [
-    "http://localhost:5000",
-    "http://ec2-54-197-133-245.compute-1.amazonaws.com:5000",
-    "http://ec2-54-197-133-245.compute-1.amazonaws.com:5000/",
-    "ec2-54-197-133-245.compute-1.amazonaws.com:5000",
-    "ec2-54-197-133-245.compute-1.amazonaws.com:5000/",
+    // "http://localhost:5000/",
+    // "http://localhost:3000/",
+    "http://ec2-23-22-29-44.compute-1.amazonaws.com:5000/",
+    "http://ec2-23-22-29-44.compute-1.amazonaws.com:3000/",
   ], // Whitelist the domains you want to allow
 };
 
@@ -46,7 +45,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.set('view engine', 'ejs');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // routes
 const inventory = require("./routes/api/inventory");
@@ -55,19 +54,19 @@ const { generateUploadURL } = require("./routes/api/ss3");
 // const s3 = require("./routes/api/s3");
 
 app.listen(PORT, async () => {
-  try {
-    // get secretsString:
-    const secretsString = await retrieveSecrets();
-    //write to .env file at root level of project:
-    await fs.writeFile(".env", secretsString);
-    //configure dotenv package
-    dotenv.config();
-    console.log("Server running on port 5000");
-  } catch (error) {
-    // log the error and crash the app
-    console.log("Error in setting environment variables", error);
-    process.exit(-1);
-  }
+  // try {
+  //   // get secretsString:
+  //   const secretsString = await retrieveSecrets();
+  //   //write to .env file at root level of project:
+  //   await fs.writeFile(".env", secretsString);
+  //   //configure dotenv package
+  //   dotenv.config();
+  //   console.log("Server running on port 5000");
+  // } catch (error) {
+  //   // log the error and crash the app
+  //   console.log("Error in setting environment variables", error);
+  //   process.exit(-1);
+  // }
   console.log(
     `Express Server running/listening on port http://localhost:${PORT}/`
   );
