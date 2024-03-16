@@ -20,9 +20,6 @@ const retrieveSecrets = require("./routes/api/retrieveSecrets");
 
 // const generateUploadURL = require("./routes/api/s3")
 
-// Connect Database
-const connectDB = require("./config/mongoosedb");
-
 // use the cors middleware with the
 // origin and credentials options
 app.use(cors({ origin: true, credentials: true }));
@@ -99,6 +96,8 @@ app.post("/api/sumOfTwoNumbers", (request, response) => {
 // for the /api/inventory path
 app.use("/api/inventory", inventory);
 
+// Connect Database
+const connectDB = require("./config/mongoosedb");
 // Connect Database
 connectDB();
 
