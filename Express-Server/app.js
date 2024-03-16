@@ -58,9 +58,10 @@ app.listen(PORT, async () => {
     // get secretsString:
     const secretsString = await retrieveSecrets();
     //write to .env file at root level of project:
-    await fs.writeFile(".env", secretsString);
+    await fs.writeFile("./.env", secretsString);
     //configure dotenv package
     dotenv.config();
+    dotenv.config({ path: "./.env" });
     console.log("Server running on port 3000");
   } catch (error) {
     // log the error and crash the app
