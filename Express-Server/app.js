@@ -28,10 +28,11 @@ app.use(cors({ origin: true, credentials: true }));
 const corsOptions = {
   credentials: true,
   origin: [
-    // "http://localhost:5000/",
-    // "http://localhost:3000/",
-    "http://ec2-23-22-29-44.compute-1.amazonaws.com:5000/",
-    "http://ec2-23-22-29-44.compute-1.amazonaws.com:3000/",
+    "http://localhost:5000",
+    "http://ec2-54-197-133-245.compute-1.amazonaws.com:5000",
+    "http://ec2-54-197-133-245.compute-1.amazonaws.com:5000/",
+    "ec2-54-197-133-245.compute-1.amazonaws.com:5000",
+    "ec2-54-197-133-245.compute-1.amazonaws.com:5000/",
   ], // Whitelist the domains you want to allow
 };
 
@@ -58,11 +59,10 @@ app.listen(PORT, async () => {
     // get secretsString:
     const secretsString = await retrieveSecrets();
     //write to .env file at root level of project:
-    await fs.writeFile("./.env", secretsString);
+    await fs.writeFile(".env", secretsString);
     //configure dotenv package
     dotenv.config();
-    dotenv.config({ path: "./.env" });
-    console.log("Server running on port 3000");
+    console.log("Server running on port 5000");
   } catch (error) {
     // log the error and crash the app
     console.log("Error in setting environment variables", error);
