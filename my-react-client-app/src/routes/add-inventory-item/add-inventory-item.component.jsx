@@ -7,8 +7,8 @@ import { NotificationManager } from "react-notifications";
 
 const AddInventoryItem = () => {
   const [itemName, setItemName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [quantity, setquantity] = useState(0);
+  const [price, setPrice] = useState();
+  const [quantity, setquantity] = useState();
   const [imageUrl, setImageUrl] = useState("");
   const imageInputRef = useRef();
 
@@ -60,6 +60,22 @@ const AddInventoryItem = () => {
   }
 
   const addInventoryItem = (e) => {
+    if (!itemName) {
+      NotificationManager.error("Item should have name", "Error !");
+      return;
+    } else if (!quantity || +quantity < 1) {
+      NotificationManager.error("Quantity should be atleast 1", "Error !");
+      return;
+    } else if (!price || +price < 1) {
+      NotificationManager.error("Price should be minimum of $1", "Error !");
+      return;
+    } else if (!imageUrl) {
+      NotificationManager.error(
+        "Image is required, please upload an image",
+        "Error !"
+      );
+      return;
+    }
     const postURL = `${baseURL}api/inventory`;
     e.preventDefault();
     const payload = { itemName, price, quantity, imageUrl };
@@ -122,6 +138,21 @@ const AddInventoryItem = () => {
           </div>
 
           <div class="d-flex flex-row mb-3 text-start form-group">
+            <label class="col-2">Quantity</label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter quantity"
+              aria-label="quantity"
+              aria-describedby="quantity"
+              value={quantity}
+              id="quantity"
+              name="quantity"
+              onChange={(e) => setquantity(e.target.value)}
+            />
+          </div>
+
+          <div class="d-flex flex-row mb-3 text-start form-group">
             <label class="col-2">Price</label>
             <input
               type="number"
@@ -133,21 +164,6 @@ const AddInventoryItem = () => {
               name="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-            />
-          </div>
-
-          <div class="d-flex flex-row mb-3 text-start form-group">
-            <label class="col-2">Quantity</label>
-            <input
-              type="number"
-              class="form-control"
-              placeholder="enter quantity"
-              aria-label="quantity"
-              aria-describedby="quantity"
-              value={quantity}
-              id="quantity"
-              name="quantity"
-              onChange={(e) => setquantity(e.target.value)}
             />
           </div>
 
@@ -168,7 +184,6 @@ const AddInventoryItem = () => {
             <button
               type="button"
               class="btn btn-primary"
-              disabled={!imageUrl}
               onClick={addInventoryItem}
             >
               Add To Inventory

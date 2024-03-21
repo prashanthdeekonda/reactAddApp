@@ -18,7 +18,16 @@ const UpdateInventoryItem = () => {
     : `http://${host}/`;
 
   const updateInventoryItem = () => {
-    console.log(state);
+    if (!itemName) {
+      NotificationManager.error("Item should have name", "Error !");
+      return;
+    } else if (!quantity || +quantity < 0) {
+      NotificationManager.error("Quantity should be 0 or greater", "Error !");
+      return;
+    } else if (!price || +price < 1) {
+      NotificationManager.error("Price should be minimum of $1", "Error !");
+      return;
+    }
     const putURL = `${baseURL}api/inventory/${state._id}`;
     const payload = { itemName, price, quantity };
     axios
@@ -34,6 +43,7 @@ const UpdateInventoryItem = () => {
         NotificationManager.error("Error updating inventory item", "Error !");
       });
   };
+
   return (
     <div>
       <div
@@ -70,21 +80,6 @@ const UpdateInventoryItem = () => {
           </div>
 
           <div class="d-flex flex-row mb-3 text-start form-group">
-            <label class="col-2"> Price </label>
-            <input
-              type="number"
-              class="form-control"
-              placeholder="Enter price"
-              aria-label="price"
-              aria-describedby="price"
-              id="price"
-              name="price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-          </div>
-
-          <div class="d-flex flex-row mb-3 text-start form-group">
             <label class="col-2"> Quantity </label>
             <input
               type="number"
@@ -96,6 +91,21 @@ const UpdateInventoryItem = () => {
               id="quantity"
               name="quantity"
               onChange={(e) => setquantity(e.target.value)}
+            />
+          </div>
+
+          <div class="d-flex flex-row mb-3 text-start form-group">
+            <label class="col-2"> Price </label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter price"
+              aria-label="price"
+              aria-describedby="price"
+              id="price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
 
