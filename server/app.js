@@ -48,6 +48,7 @@ const PORT = process.env.PORT || 5000;
 // routes
 const inventory = require("./routes/api/inventory");
 const { generateUploadURL } = require("./routes/api/ss3");
+const user = require("./routes/api/user");
 
 // const s3 = require("./routes/api/s3");
 
@@ -107,8 +108,11 @@ app.post("/api/sumOfTwoNumbers", (request, response) => {
 // for the /api/inventory path
 app.use("/api/inventory", inventory);
 
+app.use("/api/auth", user);
+
 // Connect Database
 const connectDB = require("./config/mongoosedb");
+const User = require("./models/User");
 // Connect Database
 connectDB();
 
