@@ -112,7 +112,7 @@ app.use("/api/auth", user);
 
 // Connect Database
 const connectDB = require("./config/mongoosedb");
-const User = require("./models/User");
+// const User = require("./models/User");
 // Connect Database
 connectDB();
 

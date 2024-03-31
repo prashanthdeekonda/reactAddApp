@@ -1,62 +1,79 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 
-// Load Inventory model
+// Load User model
 const User = require("../../models/User");
 
-// @route GET api/inventory/test
-// @description tests inventory route
+// @route GET api/user/auth
+// @description tests user route
 // @access Public
-router.get("/test", (req, res) => res.send("inventory route testing!"));
+router.get("/test", (req, res) => res.send("auth endpoint works!"));
 
-// @route GET api/inventory
-// @description Get all inventory
+// @route GET api/user
+// @description register user
 // @access Public
-router.get("/", (req, res) => {
-    User.find()
-    .then((items) => res.json(items))
-    .catch((err) =>
-      res.status(404).json({ noInventoryfound: "No Inventory found" })
+router.post("/register", async (req, res) => {
+  const { email, password, userName } = req.body;
+  const data = { userName, email, password };
+
+  const checkIfUserAlreadyExists = await User.findOne({ userName: userName });
+  if (checkIfUserAlreadyExists) {
+    res.send({
+      message: "Username is taken, please choose a different name",
+      userExists: true,
+    });
+  } else {
+    // hasing the password before saving to DB
+    console.log("data", data);
+    const bcryptSaltRounds = 10;
+    const hashedpassword = await bcrypt.hash(data.password, bcryptSaltRounds);
+    data.password = hashedpassword;
+
+    const userInserted = await User.insertMany(data);
+    console.log("insert", userInserted);
+
+    if (userInserted) {
+      res.send({
+        message: "Successfully, Created a user record",
+        userExists: false,
+      });
+    }
+  }
+});
+
+// @route GET api/auth
+// @description login user
+// @access Public
+router.post("/login", async (req, res) => {
+  const { password, userName } = req.body;
+  const data = { userName, password };
+  // try {
+  const checkIfUserExists = await User.findOne({ userName: userName });
+  console.log("checkIfUserExists", checkIfUserExists);
+  if (!checkIfUserExists) {
+    res.send({
+      message: "There is no record assocaited with the username",
+      userExists: false,
+    });
+  } else {
+    const comparePasswordsMatch = await bcrypt.compare(
+      password,
+      checkIfUserExists.password
     );
-});
 
-// @route GET api/books/:id
-// @description Get single book by id
-// @access Public
-router.get("/:id", (req, res) => {
-  User.find()
-  .findById(req.params.id)
-    .then((book) => res.json(book))
-    .catch((err) => res.status(404).json({ noitemfound: "No Inventory Item found" }));
-});
-
-// @route GET api/inventory
-// @description add/save inventory item
-// @access Public
-router.post("/", (req, res) => {
-  User.create(req.body)
-    .then((item) => res.json({ msg: "Inventory item added successfully" }))
-    .catch((err) => res.status(400).json({ error: "Unable to add this inventory item" }));
-});
-
-// @route GET api/inventory/:id
-// @description Update book
-// @access Public
-router.put("/:id", (req, res) => {
-  User.findByIdAndUpdate(req.params.id, req.body)
-    .then((item) => res.json({ msg: "Inventory item updated successfully" }))
-    .catch((err) =>
-      res.status(400).json({ error: "Unable to update the inventory item in Database" })
-    );
-});
-
-// @route GET api/inventory/:id
-// @description Delete inventory item by id
-// @access Public
-router.delete("/:id", (req, res) => {
-  User.findByIdAndDelete(req.params.id, req.body)
-    .then((item) => res.json({ mgs: "Inventory item entry deleted successfully" }))
-    .catch((err) => res.status(404).json({ error: "No such a inventory item" }));
+    if (comparePasswordsMatch) {
+      res.send({
+        message: "User logged in successfully ",
+        passwordMatch: true,
+      });
+    } else {
+      res.send({
+        message: "Password did not match",
+        passwordMatch: false,
+      });
+    }
+  }
 });
 
 module.exports = router;
