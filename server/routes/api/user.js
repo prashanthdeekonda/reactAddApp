@@ -66,6 +66,7 @@ router.post("/login", async (req, res) => {
       res.send({
         message: "User logged in successfully ",
         passwordMatch: true,
+        user: checkIfUserExists,
       });
     } else {
       res.send({
