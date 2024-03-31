@@ -8,7 +8,7 @@ const Navigation = () => {
     <Fragment>
       {/* navbar */}
       <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid" style={{ "justifyContent": "left" }}>
+        <div class="container-fluid" style={{ justifyContent: "left" }}>
           <Link class="d-inline-block align-text-top" to="/">
             <img
               src={logo}
@@ -25,10 +25,20 @@ const Navigation = () => {
             AdditonApp
           </Link>
           <Link class="navbar-brand px-5" to="/books">
-           Books
+            Books
           </Link>
           <Link class="navbar-brand px-5" to="/inventory">
-           Inventory Management
+            Inventory Management
+          </Link>
+
+          <Link class="navbar-brand px-5" to="/login">
+            Login
+          </Link>
+          <Link class="navbar-brand px-5" to="/signup">
+            Signup
+          </Link>
+          <Link class="navbar-brand px-5" to="/dashboard">
+            Dashboard
           </Link>
         </div>
       </nav>

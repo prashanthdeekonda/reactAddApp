@@ -15,6 +15,9 @@ import UpdateInventoryItem from "./routes/update-inventory-item/update-inventory
 // React Notification
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
+import Login from "./routes/login/login.component";
+import SignUp from "./routes/signup/signup.component";
+import Dashboard from "./routes/dashboard/dashboard.component";
 
 function App() {
   return (
@@ -31,6 +34,10 @@ function App() {
             element={<UpdateInventoryItem />}
           />
         </Route>
+
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="dashboard" element={<Dashboard />} />
       </Routes>
       <NotificationContainer />
     </Fragment>
