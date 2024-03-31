@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 // React Notification
 import { NotificationManager } from "react-notifications";
+import Spinner from "../../../components/spinner/spinner.component";
 
 const SignUp = () => {
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
+
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const host = window.location.host;
   const baseURL = host.includes("localhost")
@@ -26,6 +31,7 @@ const SignUp = () => {
       return;
     }
     e.preventDefault();
+    setLoading(true);
     // const postURL = `${baseURL}api/inventory`;
     console.log("signUp", { userName, password, email });
 
@@ -33,22 +39,39 @@ const SignUp = () => {
     axios
       .post(registerURL, { userName, email, password })
       .then((res) => {
+        setLoading(false);
         const { data } = res;
         console.log(data);
         if (data?.userExists) {
           NotificationManager.error(data?.message, "Error!");
         } else {
           NotificationManager.success(data?.message, "Successful!", 2000);
+          localStorage.clear();
+          setTimeout(() => {
+            navigate("/auth/login");
+          }, 500);
         }
       })
       .catch((err) => {
         NotificationManager.error("Error Creating a user", "Error!");
         console.log(err);
+        setLoading(false);
       });
   };
 
+  let spinnerContent;
+
+  if (loading) {
+    spinnerContent = (
+      <div className="spinner">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <div>
+      <>{spinnerContent}</>
       <div
         class="container mt-5"
         style={{
@@ -106,7 +129,7 @@ const SignUp = () => {
           </div>
           <p className="mt-2">
             Registered Already &nbsp;
-            <Link to="/login">sign in?</Link>
+            <Link to="/auth/login">sign in?</Link>
           </p>
         </form>
       </div>

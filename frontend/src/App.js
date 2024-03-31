@@ -1,5 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import { Fragment } from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
+import { Fragment, useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -15,31 +15,52 @@ import UpdateInventoryItem from "./routes/update-inventory-item/update-inventory
 // React Notification
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
-import Login from "./routes/login/login.component";
-import SignUp from "./routes/signup/signup.component";
+// import Login from "./routes/login/login.component";
+// import SignUp from "./routes/signup/signup.component";
 import Dashboard from "./routes/dashboard/dashboard.component";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const checkIsUserAuthenticated = () => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    if (!isAuthenticated || isAuthenticated === "undefined") {
+      setIsLoggedIn(false);
+    }
+    setIsLoggedIn(true);
+  };
+
+  useEffect(() => {
+    checkIsUserAuthenticated();
+  }, [isLoggedIn]);
+
   return (
-    <Fragment>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="addition" element={<Addition />} />
-        <Route path="books" element={<Books />} />
-        <Route path="inventory" element={<Inventory />} />
-        <Route path="inventory/add-item" element={<AddInventoryItem />} />\
-        <Route path="inventory/update-item" element={<UpdateInventoryItem />} />
-        <Route path="*" element={<div>No Route found</div>} />
-        {/* </Route> */}
-      </Routes>
-      <NotificationContainer />
-    </Fragment>
+    <>
+      {isLoggedIn && <Navigation />}
+      <Outlet />
+    </>
   );
+
+  // return (
+  //   <Fragment>
+  //     <Navigation />
+  //     <Routes>
+  //       <Route path="/" element={<Login />} />
+  //       <Route path="login" element={<Login />} />
+  //       <Route path="signup" element={<SignUp />} />
+  //       <Route path="dashboard" element={<Dashboard />} />
+  //       <Route path="profile" element={<Profile />} />
+  //       <Route path="addition" element={<Addition />} />
+  //       <Route path="books" element={<Books />} />
+  //       <Route path="inventory" element={<Inventory />} />
+  //       <Route path="inventory/add-item" element={<AddInventoryItem />} />\
+  //       <Route path="inventory/update-item" element={<UpdateInventoryItem />} />
+  //       <Route path="*" element={<div>No Route found</div>} />
+  //       {/* </Route> */}
+  //     </Routes>
+  //     <NotificationContainer />
+  //   </Fragment>
+  // );
 }
 
 export default App;
