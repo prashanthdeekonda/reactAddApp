@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 // React Notification
 import { NotificationManager } from "react-notifications";
 
 const Login = () => {
-  const [username, setUsername] = useState();
+  const [userName, setuserName] = useState();
   const [password, setPassword] = useState();
 
-  const signIn = (e) => {
-    if (!username) {
+  const host = window.location.host;
+  const baseURL = host.includes("localhost")
+    ? "http://localhost:5000/"
+    : `http://${host}/`;
+
+  const handleSignIn = (e) => {
+    if (!userName) {
       NotificationManager.error("Username shouldn't be empty", "Error !");
       return;
     } else if (!password) {
@@ -16,8 +22,28 @@ const Login = () => {
       return;
     }
     e.preventDefault();
-    console.log('signIn', {username, password})
+    console.log("signIn", { userName, password });
     // const postURL = `${baseURL}api/inventory`;
+
+    const loginURL = `${baseURL}api/auth/login`;
+    axios
+      .post(loginURL, { userName, password })
+      .then((res) => {
+        console.log(res);
+        const { data } = res;
+        console.log(data);
+        if (data?.userExists) {
+          NotificationManager.error(data?.message, "Error!");
+        } else if (!data?.passwordMatch) {
+          NotificationManager.error(data?.message, "Error!");
+        } else if (data?.passwordMatch) {
+          NotificationManager.success(data?.message, "Successful!", 2000);
+        }
+      })
+      .catch((err) => {
+        NotificationManager.error("Error logging into the application", "Error!");
+        console.log(err)
+      });
   };
 
   return (
@@ -41,7 +67,7 @@ const Login = () => {
               type="username"
               className="form-control"
               placeholder="Enter username"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setuserName(e.target.value)}
             />
           </div>
           <div className="mb-3">
@@ -66,7 +92,11 @@ const Login = () => {
             </div>
           </div> */}
           <div className="d-grid">
-            <button type="button" className="btn btn-primary" onClick={signIn}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={(e) => handleSignIn(e)}
+            >
               Submit
             </button>
           </div>

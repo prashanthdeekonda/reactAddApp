@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // React Notification
 import { NotificationManager } from "react-notifications";
 
 const SignUp = () => {
-  const [username, setUsername] = useState();
+  const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
 
-  const registerUser = (e) => {
-    if (!username) {
+  const host = window.location.host;
+  const baseURL = host.includes("localhost")
+    ? "http://localhost:5000/"
+    : `http://${host}/`;
+
+  const handleRegisterUser = (e) => {
+    if (!userName) {
       NotificationManager.error("Username shouldn't be empty", "Error !");
       return;
     } else if (!email) {
@@ -21,7 +27,24 @@ const SignUp = () => {
     }
     e.preventDefault();
     // const postURL = `${baseURL}api/inventory`;
-    console.log("signUp", { username, password, email });
+    console.log("signUp", { userName, password, email });
+
+    const registerURL = `${baseURL}api/auth/register`;
+    axios
+      .post(registerURL, { userName, email, password })
+      .then((res) => {
+        const { data } = res;
+        console.log(data);
+        if (data?.userExists) {
+          NotificationManager.error(data?.message, "Error!");
+        } else {
+          NotificationManager.success(data?.message, "Successful!", 2000);
+        }
+      })
+      .catch((err) => {
+        NotificationManager.error("Error Creating a user", "Error!");
+        console.log(err);
+      });
   };
 
   return (
@@ -43,7 +66,7 @@ const SignUp = () => {
               type="text"
               className="form-control"
               placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
           {/* <div className="mb-3">
@@ -76,7 +99,7 @@ const SignUp = () => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={registerUser}
+              onClick={(e) => handleRegisterUser(e)}
             >
               Sign Up
             </button>
