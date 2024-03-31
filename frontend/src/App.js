@@ -22,22 +22,20 @@ import Dashboard from "./routes/dashboard/dashboard.component";
 function App() {
   return (
     <Fragment>
+      <Navigation />
       <Routes>
-        <Route path="/" element={<Navigation />}>
-          <Route index element={<Profile />} />
-          <Route path="addition" element={<Addition />} />
-          <Route path="books" element={<Books />} />
-          <Route path="inventory" element={<Inventory />} />
-          <Route path="inventory/add-item" element={<AddInventoryItem />} />\
-          <Route
-            path="inventory/update-item"
-            element={<UpdateInventoryItem />}
-          />
-        </Route>
-
+        <Route path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="addition" element={<Addition />} />
+        <Route path="books" element={<Books />} />
+        <Route path="inventory" element={<Inventory />} />
+        <Route path="inventory/add-item" element={<AddInventoryItem />} />\
+        <Route path="inventory/update-item" element={<UpdateInventoryItem />} />
+        <Route path="*" element={<div>No Route found</div>} />
+        {/* </Route> */}
       </Routes>
       <NotificationContainer />
     </Fragment>

@@ -1,9 +1,45 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 import logo from "../../bootstrap-logo.png";
 
 const Navigation = () => {
+  const authStatus = !!sessionStorage.getItem("isAuthenticated");
+  const [isAuthenticated, setIsAuthenticated] = useState(authStatus);
+  const navItems = [
+    {
+      title: "Profile",
+      to: "/profile",
+    },
+    {
+      title: "Addition",
+      to: "/addition",
+    },
+    {
+      title: "Books",
+      to: "/books",
+    },
+    {
+      title: "Inventory",
+      to: "/inventory",
+    },
+  ];
+
+  let navLinks;
+  if (isAuthenticated) {
+    navLinks = (
+      <div>
+        {navItems.map((item) => {
+          return (
+            <Link key={item.title} class="navbar-brand px-5" to={item.to}>
+              {item.title}
+            </Link>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <Fragment>
       {/* navbar */}
@@ -18,7 +54,10 @@ const Navigation = () => {
               class="d-inline-block align-text-top"
             />
           </Link>
-          <Link class="navbar-brand px-5" to="/">
+
+          <div>{navLinks}</div>
+
+          {/* <Link class="navbar-brand px-5" to="/">
             Profile
           </Link>
           <Link class="navbar-brand px-5" to="/addition">
@@ -39,7 +78,7 @@ const Navigation = () => {
           </Link>
           <Link class="navbar-brand px-5" to="/dashboard">
             Dashboard
-          </Link>
+          </Link> */}
         </div>
       </nav>
       <Outlet />
