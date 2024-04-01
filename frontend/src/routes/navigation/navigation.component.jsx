@@ -1,9 +1,14 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../bootstrap-logo.png";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/auth/login");
+  };
   return (
     <Fragment>
       {/* navbar */}
@@ -33,6 +38,14 @@ const Navigation = () => {
           </Link>
           <Link class="navbar-brand px-5" to="/inventory">
             Inventory Management
+          </Link>
+          <Link
+            class="navbar-brand ml-auto"
+            onClick={handleLogout}
+            to="/auth/login"
+            style={{ marginLeft: "auto" }}
+          >
+            <i class="bi bi-person-circle"></i>Logout
           </Link>
         </div>
       </nav>
