@@ -1,12 +1,11 @@
-import { Fragment, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import logo from "../../../bootstrap-logo.png";
 
 const AuthNav = () => {
   return (
     <Fragment>
-      {/* navbar */}
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid" style={{ justifyContent: "left" }}>
           <Link class="d-inline-block align-text-top" to="/">

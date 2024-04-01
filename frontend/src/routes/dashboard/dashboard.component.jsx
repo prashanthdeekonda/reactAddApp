@@ -1,10 +1,6 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
-  const { state } = useLocation();
-  const data = JSON.parse(localStorage.getItem("user"));
-  const [user, setUser] = useState(data);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div>

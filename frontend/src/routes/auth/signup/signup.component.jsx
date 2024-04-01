@@ -88,14 +88,6 @@ const SignUp = () => {
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
-          {/* <div className="mb-3">
-            <label>Last name</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Last name"
-            />
-          </div> */}
           <div className="mb-3">
             <label>Email address</label>
             <input
