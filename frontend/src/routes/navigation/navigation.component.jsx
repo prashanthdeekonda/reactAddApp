@@ -1,5 +1,5 @@
-import { Fragment, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import logo from "../../bootstrap-logo.png";
 
@@ -36,7 +36,6 @@ const Navigation = () => {
           </Link>
         </div>
       </nav>
-      {/* <Outlet /> */}
     </Fragment>
   );
 };
