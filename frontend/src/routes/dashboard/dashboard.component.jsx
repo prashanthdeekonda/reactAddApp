@@ -6,7 +6,6 @@ const Dashboard = () => {
   const data = JSON.parse(localStorage.getItem('user'));
   const [user, setUser] = useState(data);
 
-  console.log('ss', user);
   return (
     <div>
       <div class="container mt-5" style={{ textAlign: "center" }}>

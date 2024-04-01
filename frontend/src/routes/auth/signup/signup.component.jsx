@@ -32,8 +32,6 @@ const SignUp = () => {
     }
     e.preventDefault();
     setLoading(true);
-    // const postURL = `${baseURL}api/inventory`;
-    console.log("signUp", { userName, password, email });
 
     const registerURL = `${baseURL}api/auth/register`;
     axios
@@ -41,7 +39,6 @@ const SignUp = () => {
       .then((res) => {
         setLoading(false);
         const { data } = res;
-        console.log(data);
         if (data?.userExists) {
           NotificationManager.error(data?.message, "Error!");
         } else {
@@ -54,7 +51,6 @@ const SignUp = () => {
       })
       .catch((err) => {
         NotificationManager.error("Error Creating a user", "Error!");
-        console.log(err);
         setLoading(false);
       });
   };

@@ -25,13 +25,11 @@ router.post("/register", async (req, res) => {
     });
   } else {
     // hasing the password before saving to DB
-    console.log("data", data);
     const bcryptSaltRounds = 10;
     const hashedpassword = await bcrypt.hash(data.password, bcryptSaltRounds);
     data.password = hashedpassword;
 
     const userInserted = await User.insertMany(data);
-    console.log("insert", userInserted);
 
     if (userInserted) {
       res.send({
@@ -50,7 +48,6 @@ router.post("/login", async (req, res) => {
   const data = { userName, password };
   // try {
   const checkIfUserExists = await User.findOne({ userName: userName });
-  console.log("checkIfUserExists", checkIfUserExists);
   if (!checkIfUserExists) {
     res.send({
       message: "There is no record assocaited with the username",

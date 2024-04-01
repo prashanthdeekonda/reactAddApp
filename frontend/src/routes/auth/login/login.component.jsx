@@ -25,17 +25,13 @@ const Login = () => {
       return;
     }
     e.preventDefault();
-    console.log("signIn", { userName, password });
-    // const postURL = `${baseURL}api/inventory`;
     setLoading(true);
     const loginURL = `${baseURL}api/auth/login`;
     axios
       .post(loginURL, { userName, password })
       .then((res) => {
         setLoading(false);
-        console.log(res);
         const { data } = res;
-        console.log(data);
         if (data?.userExists) {
           NotificationManager.error(data?.message, "Error!");
         } else if (!data?.passwordMatch) {
@@ -56,7 +52,6 @@ const Login = () => {
           "Error logging into the application",
           "Error!"
         );
-        console.log(err);
         setLoading(false);
       });
   };
