@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
 
     if (comparePasswordsMatch) {
       res.send({
-        message: "User logged in successfully ",
+        message: "User validated successfully and logging you into the portal",
         passwordMatch: true,
         user: checkIfUserExists,
       });
