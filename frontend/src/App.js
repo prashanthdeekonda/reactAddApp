@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import Navigation from "./routes/navigation/navigation.component";
+import Footer from "./routes/auth/footer/footer.component";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,6 +26,7 @@ function App() {
     <>
       {isLoggedIn && <Navigation />}
       <Outlet />
+      <Footer />
     </>
   );
 }

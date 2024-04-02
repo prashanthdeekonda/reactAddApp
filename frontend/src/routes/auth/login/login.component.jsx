@@ -4,9 +4,18 @@ import axios from "axios";
 // React Notification
 import { NotificationManager } from "react-notifications";
 import Spinner from "../../../components/spinner/spinner.component";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  FormGroup,
+  FormLabel,
+  Row,
+} from "react-bootstrap";
 
 const Login = () => {
-  const [userName, setuserName] = useState();
+  const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -67,53 +76,186 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div style={{ width: "50rem", margin: "0 auto" }}>
       <>{spinnerContent}</>
-      <div
-        class="container mt-5"
-        style={{
-          width: "42rem",
-          padding: "2rem",
-          border: "2px solid lightgray",
-          borderRadius: "5px",
-        }}
-      >
-        <form noValidate>
-          <h3 style={{ textAlign: "center" }}>Sign In</h3>
-          <div className="mb-3">
-            <label>Username</label>
-            <input
-              type="username"
-              className="form-control"
-              placeholder="Enter username"
-              onChange={(e) => setuserName(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="d-grid">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={(e) => handleSignIn(e)}
-            >
-              Submit
-            </button>
-          </div>
-          <p className="mt-3">
-            New Here&nbsp;
-            <Link to="/auth/signup">Please SignUp?</Link>
-          </p>
-        </form>
-      </div>
+      <Container className="my-5">
+        <h2 className="fw-normal mb-5 text-center">Login</h2>
+
+        {/* <Form>
+        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+          <Form.Label column sm="2">
+            Email
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="email" placeholder="Enter email" />
+          </Col>
+        </Form.Group>
+
+        <Form.Group
+          as={Row}
+          className="mb-3"
+          controlId="formPlaintextPassword"
+        >
+          <Form.Label column sm="2">
+            Password
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="password" placeholder="Password" />
+          </Col>
+        </Form.Group>
+      </Form> */}
+
+        <Row>
+          <Col>
+            <Form id="signUp" onSubmit={handleSignIn}>
+              <FormGroup className="mb-3 d-flex col-8">
+                <FormLabel htmlFor="username" class="col-3">
+                  Username
+                </FormLabel>
+                <input
+                  type="text"
+                  className="form-control ms-4  col-3"
+                  id="username"
+                  name="username"
+                  required
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+              </FormGroup>
+
+              <FormGroup className="mb-3 d-flex col-8">
+                <FormLabel htmlFor="password" class="col-3">
+                  Password
+                </FormLabel>
+                <input
+                  type="password"
+                  className="form-control ms-4  col-3"
+                  id="password"
+                  name="password"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormGroup>
+
+              <p className="mt-2 offset-md-3">
+                New Here&nbsp;
+                <Link style={{ color: "aliceblue" }} to="/auth/Signup">
+                  Please SignUp?
+                </Link>
+              </p>
+
+              <Button
+                type="submit"
+                className="btn-success mt-2 offset-md-3  text-center"
+                id="login-btn"
+              >
+                Login
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+
+      {/* <div
+      class="container mt-5"
+      style={{
+        width: "42rem",
+        padding: "2rem",
+        border: "2px solid lightgray",
+        borderRadius: "5px",
+      }}
+    >
+      <form noValidate>
+        <h3 style={{ textAlign: "center" }}>Sign Up</h3>
+        <div className="mb-3">
+          <label>Username</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Username"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label>Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Enter email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="d-grid">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={(e) => handleRegisterUser(e)}
+          >
+            Sign Up
+          </button>
+        </div>
+        <p className="mt-2">
+          Registered Already &nbsp;
+          <Link to="/auth/login">sign in?</Link>
+        </p>
+      </form>
+    </div> */}
     </div>
+    // <div>
+    //   <>{spinnerContent}</>
+    //   <div
+    //     class="container mt-5"
+    //     style={{
+    //       width: "42rem",
+    //       padding: "2rem",
+    //       border: "2px solid lightgray",
+    //       borderRadius: "5px",
+    //     }}
+    //   >
+    //     <form noValidate>
+    //       <h3 style={{ textAlign: "center" }}>Sign In</h3>
+    //       <div className="mb-3">
+    //         <label>Username</label>
+    //         <input
+    //           type="username"
+    //           className="form-control"
+    //           placeholder="Enter username"
+    //           onChange={(e) => setuserName(e.target.value)}
+    //         />
+    //       </div>
+    //       <div className="mb-3">
+    //         <label>Password</label>
+    //         <input
+    //           type="password"
+    //           className="form-control"
+    //           placeholder="Enter password"
+    //           onChange={(e) => setPassword(e.target.value)}
+    //         />
+    //       </div>
+    //       <div className="d-grid">
+    //         <button
+    //           type="button"
+    //           className="btn btn-primary"
+    //           onClick={(e) => handleSignIn(e)}
+    //         >
+    //           Submit
+    //         </button>
+    //       </div>
+    //       <p className="mt-3">
+    //         New Here&nbsp;
+    //         <Link to="/auth/signup">Please SignUp?</Link>
+    //       </p>
+    //     </form>
+    //   </div>
+    // </div>
   );
 };
 

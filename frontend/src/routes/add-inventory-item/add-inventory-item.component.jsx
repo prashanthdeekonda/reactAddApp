@@ -9,7 +9,7 @@ const AddInventoryItem = () => {
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState();
   const [quantity, setquantity] = useState();
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("a");
   const imageInputRef = useRef();
 
   // replace this url with EC2 instance url from AWS

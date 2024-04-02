@@ -14,8 +14,8 @@ router.get("/test", (req, res) => res.send("auth endpoint works!"));
 // @description register user
 // @access Public
 router.post("/register", async (req, res) => {
-  const { email, password, userName } = req.body;
-  const data = { userName, email, password };
+  const { firstName, lastName, email, password, userName } = req.body;
+  const data = { firstName, lastName, userName, email, password };
 
   const checkIfUserAlreadyExists = await User.findOne({ userName: userName });
   if (checkIfUserAlreadyExists) {
