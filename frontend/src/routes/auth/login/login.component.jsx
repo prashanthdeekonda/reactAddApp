@@ -80,31 +80,6 @@ const Login = () => {
       <>{spinnerContent}</>
       <Container className="my-5">
         <h2 className="fw-normal mb-5 text-center">Login</h2>
-
-        {/* <Form>
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Email
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="email" placeholder="Enter email" />
-          </Col>
-        </Form.Group>
-
-        <Form.Group
-          as={Row}
-          className="mb-3"
-          controlId="formPlaintextPassword"
-        >
-          <Form.Label column sm="2">
-            Password
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="password" placeholder="Password" />
-          </Col>
-        </Form.Group>
-      </Form> */}
-
         <Row>
           <Col>
             <Form id="signUp" onSubmit={handleSignIn}>
@@ -154,108 +129,7 @@ const Login = () => {
           </Col>
         </Row>
       </Container>
-
-      {/* <div
-      class="container mt-5"
-      style={{
-        width: "42rem",
-        padding: "2rem",
-        border: "2px solid lightgray",
-        borderRadius: "5px",
-      }}
-    >
-      <form noValidate>
-        <h3 style={{ textAlign: "center" }}>Sign Up</h3>
-        <div className="mb-3">
-          <label>Username</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Username"
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label>Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="d-grid">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={(e) => handleRegisterUser(e)}
-          >
-            Sign Up
-          </button>
-        </div>
-        <p className="mt-2">
-          Registered Already &nbsp;
-          <Link to="/auth/login">sign in?</Link>
-        </p>
-      </form>
-    </div> */}
     </div>
-    // <div>
-    //   <>{spinnerContent}</>
-    //   <div
-    //     class="container mt-5"
-    //     style={{
-    //       width: "42rem",
-    //       padding: "2rem",
-    //       border: "2px solid lightgray",
-    //       borderRadius: "5px",
-    //     }}
-    //   >
-    //     <form noValidate>
-    //       <h3 style={{ textAlign: "center" }}>Sign In</h3>
-    //       <div className="mb-3">
-    //         <label>Username</label>
-    //         <input
-    //           type="username"
-    //           className="form-control"
-    //           placeholder="Enter username"
-    //           onChange={(e) => setuserName(e.target.value)}
-    //         />
-    //       </div>
-    //       <div className="mb-3">
-    //         <label>Password</label>
-    //         <input
-    //           type="password"
-    //           className="form-control"
-    //           placeholder="Enter password"
-    //           onChange={(e) => setPassword(e.target.value)}
-    //         />
-    //       </div>
-    //       <div className="d-grid">
-    //         <button
-    //           type="button"
-    //           className="btn btn-primary"
-    //           onClick={(e) => handleSignIn(e)}
-    //         >
-    //           Submit
-    //         </button>
-    //       </div>
-    //       <p className="mt-3">
-    //         New Here&nbsp;
-    //         <Link to="/auth/signup">Please SignUp?</Link>
-    //       </p>
-    //     </form>
-    //   </div>
-    // </div>
   );
 };
 

@@ -1,12 +1,4 @@
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  FormGroup,
-  FormLabel,
-  Row,
-} from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 
 const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -22,7 +14,6 @@ const Dashboard = () => {
           Welcome to my MERN (MongoDB, Express, React and Node) Application
         </h6>
         <h6 className="mt-3">Logged in user:&nbsp;{user?.userName}</h6>
-        {/* <Container> */}
         <Form className="mt-3">
           <Form.Group as={Row} className="mb-3">
             <Form.Label column sm="3">
