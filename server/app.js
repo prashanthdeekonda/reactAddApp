@@ -84,9 +84,9 @@ app.get("/api/secrets", (req, res) => {
   });
 });
 
-app.get("/", (request, response) => {
-  response.send("<h1>Hey, it works!</h1>");
-});
+// app.get("/", (request, response) => {
+//   response.send("<h1>Hey, it works!</h1>");
+// });
 
 app.get("/api/addTwoNumbers", (request, response) => {
   const { firstNumber = 0, secondNumber = 0 } = request.query;
@@ -161,9 +161,9 @@ app.get("/api/books", async (req, res) => {
   res.send(response.data);
 });
 
-app.use(express.static(path.join(__dirname, "../my-react-client-app/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 app.get("/*", function (req, res) {
   res.sendFile(
-    path.resolve(__dirname, "../my-react-client-app/build", "index.html")
+    path.resolve(__dirname, "../frontend/build", "index.html")
   );
 });
