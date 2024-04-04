@@ -1,12 +1,14 @@
-FROM node:21.7.1 AS server
+FROM node:21-alpine
 
 RUN npm install -g nodemon
 
 WORKDIR /app
 
-COPY . .
+COPY package.json .
 
 RUN npm install
+
+COPY . .
 
 EXPOSE 5000
 

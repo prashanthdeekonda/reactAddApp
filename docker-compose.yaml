@@ -3,7 +3,7 @@ services:
   mongo:
     image: mongo
     container_name: mongo_c
-    restart: always
+    restart: unless-stopped
     volumes:
       - mongo-data:/data/db
     ports:
@@ -32,7 +32,8 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./frontend/src:/app/src
+      - ./frontend:/app
+      - ./app/node_modules
   caddy:
     image: caddy/caddy
     container_name: caddy_c

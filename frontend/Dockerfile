@@ -1,14 +1,12 @@
-FROM node:21.7.1 AS frontend
+FROM node:21-alpine
 
 WORKDIR /app
 
 COPY package.json .
 
-COPY . .
-
 RUN npm install
 
-RUN npm run build
+COPY . .
 
 EXPOSE 3000
 

@@ -161,9 +161,7 @@ app.get("/api/books", async (req, res) => {
   res.send(response.data);
 });
 
-app.use(express.static(path.join(__dirname, "../frontend/build")));
-app.get("/*", function (req, res) {
-  res.sendFile(
-    path.resolve(__dirname, "../frontend/build", "index.html")
-  );
-});
+app.use(express.static(path.join(__dirname, "build")));
+// app.get("/*", function (req, res) {
+//   res.sendFile(path.resolve(__dirname, "build", "index.html"));
+// });
