@@ -1,4 +1,4 @@
-FROM node:21-alpine
+FROM node:19.5.0-alpine
 
 RUN npm install -g nodemon
 
