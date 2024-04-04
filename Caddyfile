@@ -1,5 +1,5 @@
-caddy.ec2-52-91-71-215.compute-1.amazonaws.com {
-    reverse_proxy frontend:3000 {
+ec2-54-160-140-40.compute-1.amazonaws.com.nip.io {
+    reverse_proxy localhost:5000 {
         header_down Strict-Transport-Security max-age=31536000;
     }
 }
