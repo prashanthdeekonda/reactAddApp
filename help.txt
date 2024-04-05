@@ -50,3 +50,32 @@ gpgkey=https://pgp.mongodb.com/server-7.0.asc
 sudo yum install -y mongodb-org
 
 https://www.geeksforgeeks.org/how-to-install-mongodb-on-aws-ec2-instance/
+
+
+How to Do a Clean Restart of a Docker Instance
+If you are using Docker-Machine, make sure your are talking to the right one. Execute the command docker-machine ls to find which one is currently active. It is also recommended to always redo the command:
+eval "$(docker-machine env <docker machine name>)"
+Note: Deleting volumes will wipe out their data. Back up any data that you need before deleting a container.
+Procedure
+Stop the container(s) using the following command:
+docker-compose down
+Delete all containers using the following command:
+docker rm -f $(docker ps -a -q)
+Delete all volumes using the following command:
+docker volume rm $(docker volume ls -q)
+Restart the containers using the following command:
+docker-compose up -d
+
+
+
+[testuser@localhost ~]$ sudo service mongod start
+Starting mongod:                                           [  OK  ]
+[testuser@localhost ~]$ sudo service mongod stop
+Stopping mongod:                                           [  OK  ]
+[testuser@localhost ~]$ vi /etc/mongod.conf
+"/etc/mongod.conf" [Permission Denied]
+[testuser@localhost ~]$ sudo vi /etc/mongod.conf
+[sudo] password for testuser:
+Sorry, user testuser is not allowed to execute '/bin/vi /etc/mongod.conf' as root on localhost.
+
+https://www.mongodb.com/developer/products/mongodb/non-root-user-mongod-process/
