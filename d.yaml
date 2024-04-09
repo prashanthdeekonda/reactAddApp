@@ -34,6 +34,20 @@ services:
     volumes:
       - ./frontend:/app
       - ./app/node_modules
+  caddy:
+    image: caddy/caddy
+    container_name: caddy_c
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./site:/srv
+      - caddy_data:/data
+      - caddy_config:/caddy_config
 volumes:
   mongo-data:
   logs:
+  caddy_data:
+  caddy_config:

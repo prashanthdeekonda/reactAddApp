@@ -1,7 +1,7 @@
 import { Col, Form, Row } from "react-bootstrap";
 
 const Dashboard = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   return (
     <div>

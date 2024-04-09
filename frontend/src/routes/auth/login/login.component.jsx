@@ -48,9 +48,9 @@ const Login = () => {
         } else if (data?.passwordMatch) {
           NotificationManager.success(data?.message, "Successful!", 2000);
           const isAuthenticated = data.passwordMatch;
-          localStorage.clear();
-          localStorage.setItem("isAuthenticated", isAuthenticated);
-          localStorage.setItem("user", JSON.stringify(data.user));
+          sessionStorage.clear();
+          sessionStorage.setItem("isAuthenticated", isAuthenticated);
+          sessionStorage.setItem("user", JSON.stringify(data.user));
           setTimeout(() => {
             navigate("/", { state: data.user });
           }, 500);

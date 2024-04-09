@@ -54,7 +54,7 @@ const SignUp = () => {
           NotificationManager.error(data?.message, "Error!");
         } else {
           NotificationManager.success(data?.message, "Successful!", 2000);
-          localStorage.clear();
+          sessionStorage.clear();
           setTimeout(() => {
             navigate("/auth/login");
           }, 500);

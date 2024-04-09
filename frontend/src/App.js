@@ -11,7 +11,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const checkIsUserAuthenticated = () => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const isAuthenticated = sessionStorage.getItem("isAuthenticated");
     if (!isAuthenticated || isAuthenticated === "undefined") {
       setIsLoggedIn(false);
     }

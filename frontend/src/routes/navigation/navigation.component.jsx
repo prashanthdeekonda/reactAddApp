@@ -6,7 +6,7 @@ import logo from "../../bootstrap-logo.png";
 const Navigation = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/auth/login");
   };
   return (
