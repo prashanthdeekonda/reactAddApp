@@ -54,7 +54,7 @@ const Addition = () => {
   };
 
   return (
-    <div>
+    <div style={{color: "white"}}>
       <div class="container mt-5">
         <div class="d-flex flex-row mb-3 text-start">
           <span class="col-2" id="f-number">

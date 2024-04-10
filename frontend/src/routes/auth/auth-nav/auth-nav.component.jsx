@@ -18,6 +18,13 @@ const AuthNav = () => {
             />
           </Link>
           <h4> &nbsp;React Authentication</h4>
+          <Link
+            class="navbar-brand ml-auto"
+            to="/auth/login"
+            style={{ marginLeft: "auto" }}
+          >
+            <i class="bi bi-person-circle"></i>Login
+          </Link>
         </div>
       </nav>
     </Fragment>

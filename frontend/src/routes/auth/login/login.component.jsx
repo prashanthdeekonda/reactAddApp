@@ -76,7 +76,7 @@ const Login = () => {
   }
 
   return (
-    <div style={{ width: "50rem", margin: "0 auto" }}>
+    <div style={{ width: "50rem", margin: "0 auto", color: "white" }}>
       <>{spinnerContent}</>
       <Container className="my-5">
         <h2 className="fw-normal mb-5 text-center">Login</h2>
@@ -113,7 +113,7 @@ const Login = () => {
 
               <p className="mt-2 offset-md-3">
                 New Here&nbsp;
-                <Link style={{ color: "aliceblue" }} to="/auth/Signup">
+                <Link style={{ color: "aqua" }} to="/auth/Signup">
                   Please SignUp?
                 </Link>
               </p>

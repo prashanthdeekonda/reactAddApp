@@ -7,20 +7,25 @@ const Dashboard = () => {
     <div>
       <div
         class="container mt-5"
-        style={{ textAlign: "center", width: "40rem" }}
+        style={{ textAlign: "center", width: "40rem", color: "white" }}
       >
         <h5> Dashboard</h5>
         <h6 className="mt-3">
           Welcome to my MERN (MongoDB, Express, React and Node) Application
         </h6>
         <h6 className="mt-3">Logged in user:&nbsp;{user?.userName}</h6>
-        <Form className="mt-3">
+        <Form className="mt-3 text-white">
           <Form.Group as={Row} className="mb-3">
             <Form.Label column sm="3">
               First Name
             </Form.Label>
             <Col sm="5">
-              <Form.Control plaintext readOnly defaultValue={user?.firstName} />
+              <Form.Control
+                className="text-white"
+                plaintext
+                readOnly
+                defaultValue={user?.firstName}
+              />
             </Col>
           </Form.Group>
 
@@ -29,7 +34,12 @@ const Dashboard = () => {
               Last Name
             </Form.Label>
             <Col sm="5">
-              <Form.Control plaintext readOnly defaultValue={user?.lastName} />
+              <Form.Control
+                className="text-white"
+                plaintext
+                readOnly
+                defaultValue={user?.lastName}
+              />
             </Col>
           </Form.Group>
 
@@ -38,7 +48,12 @@ const Dashboard = () => {
               User Name
             </Form.Label>
             <Col sm="5">
-              <Form.Control plaintext readOnly defaultValue={user?.userName} />
+              <Form.Control
+                className="text-white"
+                plaintext
+                readOnly
+                defaultValue={user?.userName}
+              />
             </Col>
           </Form.Group>
 
@@ -47,7 +62,12 @@ const Dashboard = () => {
               Email
             </Form.Label>
             <Col sm="5">
-              <Form.Control plaintext readOnly defaultValue={user?.email} />
+              <Form.Control
+                className="text-white"
+                plaintext
+                readOnly
+                defaultValue={user?.email}
+              />
             </Col>
           </Form.Group>
         </Form>

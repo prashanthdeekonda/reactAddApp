@@ -3,6 +3,9 @@
   left: 50%;
   top: 50%;
 }
+.books {
+  color: white;
+}
 
 .books table {
   border-collapse: separate;

@@ -7,7 +7,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     sessionStorage.clear();
-    navigate("/auth/login");
+    navigate("/auth/landing");
   };
   return (
     <Fragment>
@@ -42,7 +42,7 @@ const Navigation = () => {
           <Link
             class="navbar-brand ml-auto"
             onClick={handleLogout}
-            to="/auth/login"
+            to="/auth/landing"
             style={{ marginLeft: "auto" }}
           >
             <i class="bi bi-person-circle"></i>Logout

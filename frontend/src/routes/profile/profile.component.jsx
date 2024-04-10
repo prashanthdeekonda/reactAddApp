@@ -13,7 +13,7 @@ const Profile = () => {
 
   return (
     <Fragment>
-      <div class="container mt-5">
+      <div class="container mt-5" style={{color: "white"}}>
         <div class="row align-items-start">
           <div class="col-auto">
             <div class="thumbnail">

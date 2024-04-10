@@ -10,7 +10,7 @@ const ProtectedRoute = (props) => {
     const isAuthenticated = sessionStorage.getItem("isAuthenticated");
     if (!isAuthenticated || isAuthenticated === "undefined") {
       setIsLoggedIn(false);
-      return navigate("/auth/login");
+      return navigate("/auth/landing");
     }
     setIsLoggedIn(true);
   };

@@ -53,6 +53,7 @@ const UpdateInventoryItem = () => {
           padding: "2rem",
           border: "2px solid lightgray",
           borderRadius: "5px",
+          color: "white"
         }}
       >
         <Link

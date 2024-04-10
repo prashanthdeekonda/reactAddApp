@@ -14,6 +14,7 @@ function App() {
     const isAuthenticated = sessionStorage.getItem("isAuthenticated");
     if (!isAuthenticated || isAuthenticated === "undefined") {
       setIsLoggedIn(false);
+      sessionStorage.clear();
     }
     setIsLoggedIn(true);
   };

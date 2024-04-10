@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #41b3a3;
   font-family: "Cedarville Cursive", cursive !important;
+  background-image: url("./bg.jpg");
 }
 
 code {
@@ -19,3 +20,10 @@ code {
   left: 50%;
   top: 50%;
 }
+
+/* form,
+input,
+label,
+p {
+  color: white !important;
+} */
