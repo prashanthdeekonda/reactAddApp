@@ -26,12 +26,10 @@ services:
       - MONGO_URL=mongodb://mongo:27017/mydb
   frontend:
     build: ./frontend
-    container_name: frontend_c
+    container_name: frontend_container
     restart: unless-stopped
     ports:
       - "3000:3000"
-    stdin_open: true
-    tty: true
     volumes:
       - ./frontend:/app
       - /app/node_modules
