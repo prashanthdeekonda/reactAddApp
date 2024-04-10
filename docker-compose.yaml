@@ -1,8 +1,8 @@
 version: "3.8"
 services:
   mongo:
-    image: mongo
-    container_name: mongo_c
+    image: mongo:7
+    container_name: mongo_container
     restart: unless-stopped
     volumes:
       - mongo-data:/data/db
@@ -10,13 +10,14 @@ services:
       - "27017:27017"
   server:
     build: ./server
-    container_name: server_c
+    container_name: server_container
     restart: unless-stopped
     ports:
       - "5000:5000"
     depends_on:
       - mongo
-      - frontend
+    stdin_open: true
+    tty: true
     volumes:
       - logs:/app/logs
       - ./server:/app
@@ -34,6 +35,20 @@ services:
     volumes:
       - ./frontend:/app
       - ./app/node_modules
+  caddy:
+    image: caddy:latest
+    container_name: caddy_container
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./site:/srv
+      - caddy_data:/data
+      - caddy_config:/caddy_config
 volumes:
   mongo-data:
   logs:
+  caddy_data:
+  caddy_config:

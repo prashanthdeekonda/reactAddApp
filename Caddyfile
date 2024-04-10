@@ -1,5 +1,5 @@
-54.226.255.187.nip.io {
-    reverse_proxy localhost:5000 {
+35.174.4.213.nip.io {
+    reverse_proxy server:5000 {
         header_down Strict-Transport-Security max-age=31536000;
     }
 }
