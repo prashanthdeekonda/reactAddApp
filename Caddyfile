@@ -1,4 +1,4 @@
-52.87.152.128.nip.io {
+ec2-52-91-248-7.compute-1.amazonaws.com.nip.io {
     reverse_proxy server:5000 {
         header_down Strict-Transport-Security max-age=31536000;
     }

@@ -105,6 +105,8 @@ yum -y install yum-plugin-copr
 yum -y copr enable @caddy/caddy epel-7-$(arch)
 yum -y install caddy
 
+https://medium.com/@endySantoso/make-https-with-ec2-docker-caddy-37cee41755ae
+
 https://54.226.26.131.nip.io/auth/login
 
 https://54.226.26.131.nip.io/auth/login
