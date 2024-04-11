@@ -100,3 +100,19 @@ docker container prune --filter "until=24h"
 docker volume ls
 
 docker volume prune
+
+yum -y install yum-plugin-copr
+yum -y copr enable @caddy/caddy epel-7-$(arch)
+yum -y install caddy
+
+https://54.226.26.131.nip.io/auth/login
+
+https://54.226.26.131.nip.io/auth/login
+
+https://www.freecodecamp.org/news/how-to-remove-images-in-docker/#:~:text=You%20can%20stop%20and%20delete,the%20stop%20and%20rm%20commands.
+
+https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+
+https://www.hostinger.com/tutorials/docker-remove-all-images-tutorial/
+
+https://www.hostinger.com/tutorials/docker-remove-all-images-tutorial/

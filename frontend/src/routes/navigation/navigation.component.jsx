@@ -7,7 +7,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     sessionStorage.clear();
-    navigate("/auth/landing");
+    navigate("/auth/login");
   };
   return (
     <Fragment>
@@ -39,14 +39,29 @@ const Navigation = () => {
           <Link class="navbar-brand px-5" to="/inventory">
             Inventory Management
           </Link>
-          <Link
-            class="navbar-brand ml-auto"
-            onClick={handleLogout}
-            to="/auth/landing"
-            style={{ marginLeft: "auto" }}
-          >
-            <i class="bi bi-person-circle"></i>Logout
-          </Link>
+
+          <div class="dropdown ml-auto" style={{ marginLeft: "auto" }}>
+            <button
+              class="btn  dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <Link class="dropdown-item" to="user">View User</Link>
+              <hr class="dropdown-divider" />
+              <Link
+                class="dropdown-item"
+                onClick={handleLogout}
+                to="/auth/login"
+              >
+                Logout
+              </Link>
+            </ul>
+          </div>
         </div>
       </nav>
     </Fragment>

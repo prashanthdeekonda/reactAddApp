@@ -27,3 +27,7 @@ label,
 p {
   color: white !important;
 } */
+
+.dropdown-menu[data-bs-popper] {
+  left: -100px !important;
+}

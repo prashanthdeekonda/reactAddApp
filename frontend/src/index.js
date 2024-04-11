@@ -19,7 +19,7 @@ import Books from "./routes/books/books.component";
 import Inventory from "./routes/inventory/inventory.component";
 import AddInventoryItem from "./routes/add-inventory-item/add-inventory-item.component";
 import UpdateInventoryItem from "./routes/update-inventory-item/update-inventory-item";
-import Landing from "./routes/auth/landing/landing.component";
+import User from "./routes/user/user.component";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -29,7 +29,6 @@ root.render(
     <React.StrictMode>
       <Routes>
         <Route path="/auth" element={<Auth />}>
-          <Route path="landing" element={<Landing />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
         </Route>
@@ -39,6 +38,14 @@ root.render(
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="user"
+            element={
+              <ProtectedRoute>
+                <User />
               </ProtectedRoute>
             }
           />
