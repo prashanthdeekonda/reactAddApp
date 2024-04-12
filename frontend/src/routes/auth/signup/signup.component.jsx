@@ -16,7 +16,7 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const host = window.location.host;
+  const host = "ec2-18-209-167-164.compute-1.amazonaws.com:5000";
   const baseURL = host.includes("localhost")
     ? "http://localhost:5000/"
     : `http://${host}/`;
