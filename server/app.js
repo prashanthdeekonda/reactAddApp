@@ -17,8 +17,11 @@ dotenv.config();
 
 const helmet = require("helmet");
 
-const fs = require("fs").promises;
+// const fs = require("fs").promises;
 const retrieveSecrets = require("./routes/api/retrieveSecrets");
+
+// const https = require("https");
+// const fs = require("fs");
 
 // const generateUploadURL = require("./routes/api/s3")
 
@@ -56,6 +59,37 @@ app.use(
     },
   })
 );
+app.enable("trust proxy");
+
+// app.use(function (request, response, next) {
+//   if (!request.secure) {
+//     return response.redirect("https://" + request.headers.host + request.url);
+//   }
+
+//   next();
+// });
+
+const http = require("http");
+const https = require("https");
+const fs = require("fs");
+
+const options = {
+  key: fs.readFileSync("server.key"),
+  cert: fs.readFileSync("server.crt"),
+};
+
+const httpsServer = https.createServer(options, (req, res) => {
+  res.writeHead(200);
+  res.end("Hello, world!");
+});
+
+const httpServer = http.createServer((req, res) => {
+  res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+  res.end();
+});
+
+httpServer.listen(80);
+httpsServer.listen(443);
 
 // Init Middleware
 app.use(express.json({ extended: false }));
