@@ -15,6 +15,8 @@ const aws = require("aws-sdk");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const helmet = require("helmet");
+
 const fs = require("fs").promises;
 const retrieveSecrets = require("./routes/api/retrieveSecrets");
 
@@ -35,7 +37,9 @@ const corsOptions = {
 };
 
 app.use(cors());
-app.options('*', cors());
+app.options("*", cors());
+
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // Init Middleware
 app.use(express.json({ extended: false }));
