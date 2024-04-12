@@ -39,7 +39,15 @@ const corsOptions = {
 app.use(cors());
 app.options("*", cors());
 
+app.use(helmet());
 app.use(helmet({ contentSecurityPolicy: false }));
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      ...defaultDirectives,
+    },
+  })
+);
 
 // Init Middleware
 app.use(express.json({ extended: false }));
