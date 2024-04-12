@@ -35,6 +35,7 @@ const corsOptions = {
 };
 
 app.use(cors());
+app.options('*', cors());
 
 // Init Middleware
 app.use(express.json({ extended: false }));
