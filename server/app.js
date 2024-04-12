@@ -42,6 +42,21 @@ app.options("*", cors());
 app.use(helmet());
 app.use(helmet({ contentSecurityPolicy: false }));
 
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        connectSrc: [
+          "'self'",
+          "http://127.0.0.1:8000",
+          "ws://localhost:42877/",
+        ],
+      },
+    },
+  })
+);
+
 // Init Middleware
 app.use(express.json({ extended: false }));
 
