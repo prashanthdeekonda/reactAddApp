@@ -1,4 +1,4 @@
-ec2-18-209-167-164.compute-1.amazonaws.com.nip.io {
+18.209.167.164.nip.io {
     reverse_proxy server:5000 {
         header_down Strict-Transport-Security max-age=31536000;
     }
