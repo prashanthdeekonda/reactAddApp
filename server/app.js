@@ -42,8 +42,8 @@ const corsOptions = {
 app.use(cors());
 app.options("*", cors());
 
-app.use(helmet());
-app.use(helmet({ contentSecurityPolicy: false }));
+// app.use(helmet());
+// app.use(helmet({ contentSecurityPolicy: false }));
 
 // app.use(
 //   helmet({
