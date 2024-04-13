@@ -1,4 +1,4 @@
-version: "3.8"
+version: "23.0.1"
 services:
   mongo:
     image: mongo:7
@@ -9,7 +9,7 @@ services:
     ports:
       - "27017:27017"
   server:
-    build: ./server
+    build: ./
     container_name: server_container
     restart: unless-stopped
     ports:
@@ -18,21 +18,8 @@ services:
       - mongo
     stdin_open: true
     tty: true
-    volumes:
-      - logs:/app/logs
-      - ./server:/app
-      - /app/node_modules
     environment:
       - MONGO_URL=mongodb://mongo:27017/mydb
-  frontend:
-    build: ./frontend
-    container_name: frontend_container
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
   caddy:
     image: caddy:latest
     container_name: caddy_container
@@ -47,6 +34,5 @@ services:
       - caddy_config:/caddy_config
 volumes:
   mongo-data:
-  logs:
   caddy_data:
   caddy_config:
