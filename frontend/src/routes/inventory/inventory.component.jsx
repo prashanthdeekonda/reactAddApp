@@ -15,10 +15,11 @@ const Inventory = () => {
   const navigate = useNavigate();
 
   // replace this url with EC2 instance url from AWS
-  const host = "ec2-18-209-167-164.compute-1.amazonaws.com:5000";
+  const host = window.location.host;
   const baseURL = host.includes("localhost")
     ? "http://localhost:5000/"
-    : `http://${host}/`;
+    : `https://${host}/`;
+
   // const baseURL = "http://localhost:5000/";
   const updateInventoryItem = (item) => {
     navigate("update-item", { state: item });
@@ -91,7 +92,7 @@ const Inventory = () => {
   }
 
   return (
-    <div style={{color: "white"}}>
+    <div style={{ color: "white" }}>
       <div class="container mt-5">
         <h1 style={{ textAlign: "center" }}>Inventory Mangement</h1>
         <span

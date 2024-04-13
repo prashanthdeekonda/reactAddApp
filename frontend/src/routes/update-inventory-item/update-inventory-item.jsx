@@ -12,10 +12,10 @@ const UpdateInventoryItem = () => {
   const [quantity, setquantity] = useState(state.quantity);
 
   // replace this url with EC2 instance url from AWS
-  const host = "ec2-18-209-167-164.compute-1.amazonaws.com:5000";
+  const host = window.location.host;
   const baseURL = host.includes("localhost")
     ? "http://localhost:5000/"
-    : `http://${host}/`;
+    : `https://${host}/`;
 
   const updateInventoryItem = () => {
     if (!itemName) {

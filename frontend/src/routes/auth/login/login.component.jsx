@@ -19,7 +19,7 @@ const Login = () => {
   const host = window.location.host;
   const baseURL = host.includes("localhost")
     ? "http://localhost:5000/"
-    : `http://${host}/`;
+    : `https://${host}/`;
 
   const setField = (field, value) => {
     setForm({
