@@ -45,21 +45,21 @@ app.options("*", cors());
 app.use(helmet());
 app.use(helmet({ contentSecurityPolicy: false }));
 
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        connectSrc: [
-          "'self'",
-          "http://127.0.0.1:8000",
-          "ws://localhost:42877/",
-        ],
-      },
-    },
-  })
-);
-app.enable("trust proxy");
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: {
+//       directives: {
+//         defaultSrc: ["'self'"],
+//         connectSrc: [
+//           "'self'",
+//           "http://127.0.0.1:8000",
+//           "ws://localhost:42877/",
+//         ],
+//       },
+//     },
+//   })
+// );
+// app.enable("trust proxy");
 
 // app.use(function (request, response, next) {
 //   if (!request.secure) {
@@ -69,27 +69,27 @@ app.enable("trust proxy");
 //   next();
 // });
 
-const http = require("http");
-const https = require("https");
-const fs = require("fs");
+// const http = require("http");
+// const https = require("https");
+// const fs = require("fs");
 
-const options = {
-  key: fs.readFileSync("server.key"),
-  cert: fs.readFileSync("server.crt"),
-};
+// const options = {
+//   key: fs.readFileSync("server.key"),
+//   cert: fs.readFileSync("server.crt"),
+// };
 
-const httpsServer = https.createServer(options, (req, res) => {
-  res.writeHead(200);
-  res.end("Hello, world!");
-});
+// const httpsServer = https.createServer(options, (req, res) => {
+//   res.writeHead(200);
+//   res.end("Hello, world!");
+// });
 
-const httpServer = http.createServer((req, res) => {
-  res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-  res.end();
-});
+// const httpServer = http.createServer((req, res) => {
+//   res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+//   res.end();
+// });
 
-httpServer.listen(80);
-httpsServer.listen(443);
+// httpServer.listen(80);
+// httpsServer.listen(443);
 
 // Init Middleware
 app.use(express.json({ extended: false }));
