@@ -1,12 +1,12 @@
 body {
   margin: 0;
-  font-family: "Cedarville Cursive", cursive, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #41b3a3;
-  font-family: "Cedarville Cursive", cursive !important;
+  font-family: Roboto !important;
   background-image: url("./bg.jpg");
 }
 
