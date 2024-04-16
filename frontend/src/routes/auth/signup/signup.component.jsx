@@ -16,10 +16,10 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const host = window.location.host;
-  const baseURL = host.includes("localhost")
+  const origin = window.location.origin;
+  const baseURL = origin.includes("localhost")
     ? "http://localhost:5000/"
-    : `https://${host}/`;
+    : `${origin}/`;
 
   const setField = (field, value) => {
     setForm({

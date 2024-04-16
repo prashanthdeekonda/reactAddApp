@@ -18,11 +18,10 @@ const Addition = () => {
     // set addition data from reactjs
     setAdditionOfTwoNumbers(parseInt(fnumber) + parseInt(snumber));
 
-    // replace this url with EC2 instance url from AWS
-    const host = window.location.host;
-    const baseURL = host.includes("localhost")
+    const origin = window.location.origin;
+    const baseURL = origin.includes("localhost")
       ? "http://localhost:5000/"
-      : `https://${host}/`;
+      : `${origin}/`;
 
     // set addition data from server with GET call using XMLHttpRequest
     const xhr = new XMLHttpRequest();

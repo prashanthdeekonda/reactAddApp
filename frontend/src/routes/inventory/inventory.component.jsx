@@ -14,11 +14,10 @@ const Inventory = () => {
   const [itemDeleted, setItemDeleted] = useState(0);
   const navigate = useNavigate();
 
-  // replace this url with EC2 instance url from AWS
-  const host = window.location.host;
-  const baseURL = host.includes("localhost")
+  const origin = window.location.origin;
+  const baseURL = origin.includes("localhost")
     ? "http://localhost:5000/"
-    : `https://${host}/`;
+    : `${origin}/`;
 
   // const baseURL = "http://localhost:5000/";
   const updateInventoryItem = (item) => {
