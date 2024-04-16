@@ -64,7 +64,7 @@ const SignUp = () => {
     }
 
     if (!email || email === "") {
-      setErrors.email = "email is required!";
+      setErrors.email = "Email is required!";
     } else if (!emailRegex.test(email)) {
       setErrors.email = "Invalid - Email should match the pattern";
     }
