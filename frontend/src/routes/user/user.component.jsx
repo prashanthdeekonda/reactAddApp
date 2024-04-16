@@ -15,7 +15,7 @@ const User = () => {
             <ListGroup.Item>First Name:&nbsp;{user?.firstName}</ListGroup.Item>
             <ListGroup.Item>Last Name:&nbsp;{user?.lastName}</ListGroup.Item>
             <ListGroup.Item>User Name:&nbsp;{user?.userName}</ListGroup.Item>
-            <ListGroup.Item>User Emails:&nbsp;{user?.email}</ListGroup.Item>
+            <ListGroup.Item>User Email:&nbsp;{user?.email}</ListGroup.Item>
           </ListGroup>
         </Card>
       </div>
