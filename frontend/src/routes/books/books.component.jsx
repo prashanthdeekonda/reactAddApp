@@ -12,13 +12,12 @@ const Books = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const booksApiUrl = "https://books-api7.p.rapidapi.com/books/find/genres";
-    const params = { "genres[]": ["fantasy", "fiction", "Classics"] };
+    const booksApiUrl = "https://all-books-api.p.rapidapi.com/getBooks";
     const headers = {
       "X-RapidAPI-Key": "eaed3af1eemshe894b69298432ccp10d934jsn9fa0b2a61780",
-      "X-RapidAPI-Host": "books-api7.p.rapidapi.com",
+      "X-RapidAPI-Host": "all-books-api.p.rapidapi.com",
     };
-    axios(booksApiUrl, { params, headers })
+    axios(booksApiUrl, { headers })
       .then((response) => {
         const { data } = response;
         setBooksCollection(data);
@@ -59,20 +58,28 @@ const Books = () => {
               <th>IMAGE</th>
               <th>TITLE</th>
               <th>AUTHOR</th>
-              <th>GENRE</th>
+              <th>PUBLISHER</th>
+              <th>BUY AT AMAZON</th>
             </tr>
           </thead>
           <tbody>
             {booksCollection.map((book) => {
-              const author = `${book.author.first_name} ${book.author.last_name}`;
               return (
-                <tr key={book._id}>
+                <tr key={book.bookIsbn}>
                   <td>
-                    <img src={book.cover} width="90" height="90" alt="ima" />
+                    <img
+                      src={book.bookImage}
+                      width="90"
+                      height="90"
+                      alt="ima"
+                    />
                   </td>
-                  <td>{book.title}</td>
-                  <td>{author}</td>
-                  <td>{book.genres.join(", ")}</td>
+                  <td>{book.bookTitle}</td>
+                  <td>{book.bookAuthor}</td>
+                  <td>{book.bookPublisher}</td>
+                  <td>
+                    <a href={book.amazonBookUrl}> Buy</a>
+                  </td>
                 </tr>
               );
             })}
